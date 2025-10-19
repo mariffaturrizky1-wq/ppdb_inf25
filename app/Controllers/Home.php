@@ -4,8 +4,12 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index(): string
+    public function index()
     {
-        return view('v_home');
+            $data = [
+            'title' => 'PPDB Online',
+            'subtitle' => 'Home',
+        ];
+        return view('v_home' , $data);
     }
 }
