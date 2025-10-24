@@ -1,4 +1,4 @@
-<?= $this->extend('template-beakend-admin') ?>
+<?= $this->extend('template-backend-admin') ?>
 <?= $this->section('content') ?>
 
 <h1>ini Dashboard</h1>
