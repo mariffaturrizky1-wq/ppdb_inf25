@@ -57,7 +57,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <i class="fas fa-user"></i>login/Register
           </a>
         </li>
-      </ul>
+      </ul> 
     </div>
   </nav>
   <!-- /.navbar -->
