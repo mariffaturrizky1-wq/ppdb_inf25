@@ -7,6 +7,8 @@ use CodeIgniter\Router\RouteCollection;
  */
 
 $routes->get('/', 'Home::index');
-$routes->get('/login', 'Auth::login');
-$routes->get('/admin', 'Admin::index');
-$routes->get('/auth', 'Auth::index');
+$routes->get('auth', 'Auth::index');
+$routes->get('auth/login', 'Auth::login');          // ✅ route ke halaman login
+$routes->post('auth/cek_login_user', 'Auth::cek_login_user'); // ✅ proses login
+$routes->get('admin', 'Admin::index');
+$routes->get('auth/logout', 'Auth::logout');

@@ -23,9 +23,27 @@
       <a href="<?= base_url() ?>" class="h1"><b>Admin</b> Login</a>
     </div>
     <div class="card-body">
-      <form action="../../index3.html" method="post">
+      <?php
+$errors = session()->getFlashdata('errors');
+if (!empty($errors)) { ?>
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            <?php foreach ($errors as $error) : ?>
+                <li><?= esc($error) ?></li>
+            <?php endforeach ?>
+        </ul>
+    </div>
+<?php } ?>
+
+  <?php if (session()->getFlashdata('pesan')) : ?>
+  <div class="alert alert-danger" role="alert">
+    <?= session()->getFlashdata('pesan'); ?>
+  </div>
+<?php endif; ?>
+
+      <?php echo form_open('auth/cek_login_user') ?>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" name="email" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -33,7 +51,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -53,7 +71,7 @@
           </div>
           <!-- /.col -->
         </div>
-      </form>
+        <?php echo form_close() ?>
       <!-- /.social-auth-links -->
     </div>
     <!-- /.card-body -->
