@@ -9,3 +9,4 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Auth::login');
 $routes->get('/admin', 'Admin::index');
+$routes->get('/auth', 'Auth::index');

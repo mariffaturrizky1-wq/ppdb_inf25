@@ -8,11 +8,11 @@ class Auth extends BaseController
 {
     public function index()
     {
-        // opsional
-    }
+        $data = [
+            'title' => 'Login',
+            'subtitle' => 'Form Login',
+        ];
 
-    public function login()
-    {
-        echo view('v_login-admin'); // pastikan nama file sesuai
+        return view('v_login-admin', $data);
     }
 }
