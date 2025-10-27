@@ -10,6 +10,6 @@ class Home extends BaseController
             'title' => 'PPDB Online',
             'subtitle' => 'Home',
         ];
-        return view('v_home' , $data);
+        return view('template/v_home' , $data);
     }
 }

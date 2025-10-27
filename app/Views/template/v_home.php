@@ -1,4 +1,4 @@
-<?= $this->extend('template-frontend') ?>
+<?= $this->extend('template/template-frontend') ?>
 <?= $this->section('content') ?>
 
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -9,13 +9,13 @@
                   </ol>
                   <div class="carousel-inner">
                     <div class="carousel-item active">
-                      <img class="d-block w-100" height="550px" src="<?= base_url('ppdb/ppdb1.png') ?>" alt="First slide">
+                      <img class="d-block w-300" height="500px" src="<?= base_url('ppdb/ppdb1.jpg')?>" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                      <img class="d-block w-100" height="550px" src="<?= base_url('ppdb/ppdb2.png') ?>" alt="Second slide">
+                      <img class="d-block w-200" height="450px" src="<?= base_url('ppdb/ppdb2.png')?>" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                      <img class="d-block w-100" height="550px" src="<?= base_url('ppdb/ppdb3.png') ?>" alt="Third slide">
+                      <img class="d-block w-200" height="450px" src="<?= base_url('ppdb/ppdb3.png')?>" alt="Third slide">
                     </div>
                   </div>
                   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
