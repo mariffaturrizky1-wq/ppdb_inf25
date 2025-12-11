@@ -11,5 +11,6 @@ class Home extends BaseController
             'subtitle' => 'Home',
         ];
         return view('template/v_home' , $data);
+
     }
 }

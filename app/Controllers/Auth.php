@@ -53,6 +53,7 @@ class Auth extends BaseController
                 session()->set('nama_user',$cek_login['nama_user']);
                 session()->set('email',$cek_login['email']);
                 session()->set('foto',$cek_login['foto']);
+                session()->set('level','admin');
                 return redirect()->to(base_url('admin'));
             } else {
                 session()->setFlashdata('pesan', 'Email Atau Password Salah !!!');
@@ -69,6 +70,7 @@ class Auth extends BaseController
         session()->remove('nama_user');
         session()->remove('email');
         session()->remove('foto');
+        session()->remove('level');
         session()->setFlashdata('pesan', 'Logout Berhasil');
         return redirect()->to(base_url('auth/login'));
     }   

@@ -28,6 +28,7 @@ class Filters extends BaseFilters
         'csrf'          => CSRF::class,
         'toolbar'       => DebugToolbar::class,
         'honeypot'      => Honeypot::class,
+        'filteruser'    => \App\Filters\FilterUser::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
         'cors'          => Cors::class,
@@ -72,15 +73,22 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
-        ],
+            'filteruser' => ['except' => [
+                'auth', 'auth/*',
+                'home', 'home/*',
+                '/'
+            ]]
+    ],
         'after' => [
-            // 'honeypot',
-            // 'secureheaders',
+            'filteruser' => ['except' => [
+                'home', 'home/*',
+                '/',
+                'admin', 'home/*',
+                'sekolah', 'sekolah/*',
+            ]], 
+            'toolbar',
         ],
-    ];
+];
 
     /**
      * List of filter aliases that works on a
