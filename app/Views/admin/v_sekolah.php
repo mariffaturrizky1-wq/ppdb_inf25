@@ -2,40 +2,85 @@
 <?= $this->section('content') ?>
 
 <style>
-    td {
-        vertical-align: middle;
-        font-size: 14px;
-    }
+/* Hover tombol */
+.btn-warning:hover,
+.btn-danger:hover {
+    transform: scale(1.08);
+    transition: 0.2s ease;
+}
+
+/* Hover baris tabel */
+.table tbody tr:hover {
+    background-color: #f4f6f9;
+}
+
+/* Header tabel */
+.table thead th {
+    background-color: #1f2933;
+    color: white;
+    font-size: 14px;
+}
+
+/* Padding tabel */
+.table td, .table th {
+    padding: 10px;
+}
+
+/* Badge kuota */
+.badge {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 12px;
+}
+
+.btn-success {
+    border-radius: 20px;
+    padding: 6px 18px;
+}
+
 </style>
 
 
 <div class="col-sm-12">
-    <div class="card card-primary">
-        <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+    <div class="card shadow border-0">
+        <div class="card-header bg-gradient-primary">
     <h3 class="card-title text-white">
         <i class="fas fa-school"></i> Data Sekolah
     </h3>
     <div class="card-tools float-right">
+
+    <div class="card-tools">
     <button type="button"
-            class="btn btn-sm btn-light"
+            class="btn btn-light btn-sm btn-add"
             data-toggle="modal"
             data-target="#add">
-        <i class="fas fa-plus"></i> Tambah Sekolah
+        <i class="fas fa-plus-circle"></i> Tambah Sekolah
     </button>
 </div>
+
 </div>
         </div>
         <div class="card-body">
+            <?php if (session()->getFlashdata('success')): ?>
+<div class="alert alert-success alert-dismissible fade show">
+    <i class="fas fa-check-circle"></i>
+    <?= session()->getFlashdata('success') ?>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+<?php endif; ?>
 
+<div class="card card-outline card-primary mb-3">
+    <div class="card-body py-2"></div>
     <!--CODE UNTUK SEARCH-->
     <form method="get" action="<?= base_url('sekolah') ?>" class="mb-3">
     <div class="d-flex justify-content-start">
         <div class="input-group input-group-sm" style="max-width: 320px;">
             <input type="text"
                 name="keyword"
-                class="form-control"
-                placeholder="Cari nama / alamat sekolah"
+                class="form-control form-control-sm shadow-sm"
+                placeholder="🔍 Cari sekolah..."
                 value="<?= esc($keyword ?? '') ?>">
+
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">
                     <i class="fas fa-search"></i>
@@ -49,18 +94,6 @@
 </form>
 
     <!-- CODE BUAT TABEL #KYY -->
-     <style>
-    table td {
-        vertical-align: middle;
-        font-size: 14px;
-    }
-
-    table td:nth-child(4) {
-        max-width: 350px;
-        white-space: normal;
-        word-wrap: break-word;
-    }
-</style>
 
     <table id="example2" class="table table-bordered table-hover table-striped">
                 <thead>
@@ -80,30 +113,48 @@
                             <td><?= $no++; ?></td>
                             <td><?= $row['id_sekolah']; ?></td>
                             <td><?= $row['nama_sekolah']; ?></td>
-                            <td><?= $row['alamat']; ?></td>
-                            <td><?= $row['kuota']; ?></td>
-                        <td class="text-center">
+                            <td title="<?= $row['alamat'] ?>">
+                                <?= substr($row['alamat'], 0, 50) ?>...
+                            </td>
+
+
+                            <td class="text-center">
+                                <?php
+                                $kuota = $row['kuota'];
+                                $badge = 'success';
+                                if ($kuota < 300) $badge = 'danger';
+                                elseif ($kuota < 350) $badge = 'warning';
+                                ?>
+                                <span class="badge badge-<?= $badge ?>">
+                                <?= $kuota ?>
+                                </span>
+                            </td>
+
     <!-- EDIT -->
-<button 
-  class="btn btn-warning btn-edit"
-  data-id="<?= $row['id_sekolah'] ?>"
-  data-nama="<?= $row['nama_sekolah'] ?>"
-  data-alamat="<?= $row['alamat'] ?>"
-  data-kuota="<?= $row['kuota'] ?>"
-  data-toggle="modal"
-  data-target="#modalEdit">
-  <i class="fas fa-edit"></i>
-</button>
+    <td class="text-center">
+    <div class="btn-group" role="group">
+        <button 
+            class="btn btn-warning btn-sm btn-edit"
+            data-id="<?= $row['id_sekolah'] ?>"
+            data-nama="<?= $row['nama_sekolah'] ?>"
+            data-alamat="<?= $row['alamat'] ?>"
+            data-kuota="<?= $row['kuota'] ?>"
+            data-toggle="modal"
+            data-target="#modalEdit"
+            title="Edit">
+            <i class="fas fa-edit"></i>
+        </button>
 
-    <!-- HAPUS -->
-<button 
-  class="btn btn-danger btn-delete"
-  data-id="<?= $row['id_sekolah'] ?>"
-  data-toggle="modal"
-  data-target="#modalDelete">
-  <i class="fas fa-trash"></i>
-</button>
-
+        <button 
+            class="btn btn-danger btn-sm btn-delete"
+            data-id="<?= $row['id_sekolah'] ?>"
+            data-toggle="modal"
+            data-target="#modalDelete"
+            title="Hapus">
+            <i class="fas fa-trash"></i>
+        </button>
+    </div>
+</td>
 
 
                         </tr>
@@ -209,7 +260,10 @@
         <input type="hidden" name="id_sekolah" id="delete_id">
 
         <div class="modal-body">
-            <p>Yakin ingin menghapus data ini?</p>
+            <p class="text-danger font-weight-bold">
+                Data yang dihapus tidak bisa dikembalikan!
+            </p>
+
         </div>
 
         <div class="modal-footer">

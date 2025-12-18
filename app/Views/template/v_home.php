@@ -1,37 +1,117 @@
 <?= $this->extend('template/template-frontend') ?>
 <?= $this->section('content') ?>
 
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                  <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                  </ol>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img class="d-block w-300" height="500px" src="<?= base_url('ppdb/ppdb1.jpg')?>" alt="First slide">
-                    </div>
-                    <div class="carousel-item">
-                      <img class="d-block w-200" height="450px" src="<?= base_url('ppdb/ppdb2.png')?>" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                      <img class="d-block w-200" height="450px" src="<?= base_url('ppdb/ppdb3.png')?>" alt="Third slide">
-                    </div>
-                  </div>
-                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                    <span class="carousel-control-custom-icon" aria-hidden="true">
-                      <i class="fas fa-chevron-left"></i>
-                    </span>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                    <span class="carousel-control-custom-icon" aria-hidden="true">
-                      <i class="fas fa-chevron-right"></i>
-                    </span>
-                    <span class="sr-only">Next</span>
-                  </a>
+<div class="container mt-4">
+
+    <h4 class="mb-4">Pendaftaran Tahun Ajaran 2025/2026</h4>
+
+    <div class="row">
+
+        <!-- KONTEN KIRI -->
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <img src="<?= base_url('ppdb/ppdb1.jpg') ?>"
+                         class="img-fluid"
+                         alt="PPDB Online">
                 </div>
+            </div>
+        </div>
+
+<!-- KONTEN KANAN -->
+<div class="col-md-4">
+
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <strong>Estimasi Pendaftar Tahun 2025</strong>
+        </div>
+
+        <div class="card-body">
+
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-info">
+                    <i class="fas fa-user-graduate"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Jumlah Pendaftar</span>
+                    <span class="info-box-number">0</span>
+                </div>
+            </div>
+
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success">
+                    <i class="fas fa-male"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Jumlah Laki-laki</span>
+                    <span class="info-box-number">0</span>
+                </div>
+            </div>
+
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning">
+                    <i class="fas fa-female"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Jumlah Perempuan</span>
+                    <span class="info-box-number">0</span>
+                </div>
+            </div>
+
+            <a href="<?= base_url('auth/login') ?>" class="btn btn-primary btn-block">
+                <i class="fas fa-sign-in-alt"></i> Login / Daftar
+            </a>
+
+        </div> <!-- /.card-body -->
+    </div> <!-- /.card -->
+
+</div> <!-- /.col-md-4 -->
 
 
-                
+<!-- DESKRIPSI BERANDA -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <strong>Beranda</strong>
+            </div>
+
+            <div class="card-body">
+
+                <h5 class="text-primary text-center mb-3">
+                    PPDB Online SMA Wilayah Brebes Tahun Ajaran 2025/2026
+                </h5>
+
+                <p>
+                    PPDB Online adalah sistem layanan yang dirancang untuk memfasilitasi
+                    proses <strong>Penerimaan Peserta Didik Baru (PPDB)</strong> secara
+                    daring, mulai dari pendaftaran, seleksi, hingga pengumuman hasil
+                    seleksi yang dilakukan secara <strong>transparan, cepat, dan akuntabel</strong>.
+                </p>
+
+                <p>
+                    Melalui sistem ini, calon peserta didik dapat melakukan proses
+                    pendaftaran tanpa harus datang langsung ke sekolah, sehingga
+                    mempermudah akses layanan pendidikan bagi masyarakat.
+                </p>
+
+                <hr>
+
+                <h6><strong>Persyaratan Calon Peserta Didik Baru</strong></h6>
+
+                <ol>
+                    <li>Berusia maksimal 21 tahun pada saat pendaftaran.</li>
+                    <li>Memiliki ijazah atau Surat Keterangan Lulus (SKL).</li>
+                    <li>Melengkapi data diri dan data orang tua/wali.</li>
+                    <li>Melampirkan dokumen persyaratan sesuai ketentuan.</li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <?= $this->endSection() ?>

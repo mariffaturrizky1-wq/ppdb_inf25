@@ -20,78 +20,112 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
 
-  <!-- Navbar -->
+  <!-- ================= NAVBAR ================= -->
   <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
     <div class="container">
-      <a href="../../index3.html" class="navbar-brand">
-        <img src="<?= base_url() ?>/AdminLTE/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light"><b>PPDB Online</b><span>
+
+      <!-- LOGO -->
+      <a href="<?= base_url() ?>" class="navbar-brand">
+        <img src="<?= base_url('assets/AdminLTE/dist/img/AdminLTELogo.png') ?>"
+             alt="Logo"
+             class="brand-image img-circle elevation-3"
+             style="opacity:.8">
+        <span class="brand-text font-weight-bold">PPDB Online</span>
       </a>
 
-      <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <!-- TOGGLER -->
+      <button class="navbar-toggler order-1" type="button"
+              data-toggle="collapse" data-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!-- MENU KIRI -->
       <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-        <!-- Left navbar links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a href="<?= base_url()?>" class="nav-link">Home</a>
+            <a href="<?= base_url() ?>" class="nav-link">Home</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">pengumuman</a>
+            <a href="<?= base_url('pengumuman') ?>" class="nav-link">Pengumuman</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">contact</a>
+            <a href="<?= base_url('contact') ?>" class="nav-link">Contact</a>
           </li>
         </ul>
-
-    
       </div>
 
-      <!-- Right navbar links -->
+      <!-- MENU KANAN (AKUN) -->
       <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-        <!-- Messages Dropdown Menu -->
-         <li class="nav-item">
-          <a class="nav-link" href="<?= base_url('login')?>"
-            <i class="fas fa-user"></i>login/Register
-          </a>
-        </li>
-      </ul> 
+
+        <?php if (!session()->get('logged_in')) : ?>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn btn-outline-primary px-3"
+               href="#" data-toggle="dropdown">
+              <i class="fas fa-user-circle"></i> Akun
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right shadow">
+              <a class="dropdown-item" href="<?= base_url('auth/login') ?>">
+                <i class="fas fa-sign-in-alt mr-2 text-primary"></i> Login
+              </a>
+              <a class="dropdown-item" href="<?= base_url('register') ?>">
+                <i class="fas fa-user-plus mr-2 text-success"></i> Daftar
+              </a>
+            </div>
+          </li>
+
+        <?php else : ?>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn btn-primary text-white px-3"
+               href="#" data-toggle="dropdown">
+              <i class="fas fa-user"></i> <?= session()->get('nama_user') ?>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-right shadow">
+              <a class="dropdown-item" href="<?= base_url('dashboard') ?>">
+                <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+              </a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item text-danger" href="<?= base_url('logout') ?>">
+                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+              </a>
+            </div>
+          </li>
+
+        <?php endif; ?>
+
+      </ul>
+
     </div>
   </nav>
-  <!-- /.navbar -->
+  <!-- =============== END NAVBAR =============== -->
 
-  <!-- Content Wrapper. Contains page content -->
+
+  <!-- ================= CONTENT ================= -->
   <div class="content-wrapper">
-
-    <!-- Main content -->
-    <div class="content">
+    <div class="content pt-3">
       <div class="container">
-        <div class="row">
-         
-          <?= $this->renderSection('content') ?>
 
-          <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        <?= $this->renderSection('content') ?>
+
+      </div>
     </div>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+  <!-- =============== END CONTENT =============== -->
 
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="main-footer text-center">
+    <strong>
+      Copyright &copy; <?= date('Y') ?>
+      <a href="#">PPDB Online</a>.
+    </strong>
+    All rights reserved.
   </footer>
+
 </div>
-<!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
 
