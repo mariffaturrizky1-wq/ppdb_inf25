@@ -24,14 +24,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     
     <!-- SEARCH FORM -->
-     <h3>Halaman Admin</h3>
-   
+    <h3>Halaman Admin</h3>
+  
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
     
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('auth/logout')?>"
+        <a class="nav-link" href="<?= base_url('auth/logout')?>">
           <i class="fas fa-lock"></i> logout
         </a>
       </li>
@@ -64,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+            with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
 
           <li class="nav-item">
-            <a href="<?= base_url('Sekolah') ?>" class="nav-link active">
+            <a href="<?= base_url('sekolah') ?>" class="nav-link active">
               <i class="nav-icon fas fa-solid fa-school"></i>
               <p>Sekolah</p>
             </a>
@@ -147,9 +147,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- jQuery -->
 <script src="<?= base_url('assets/AdminLTE/plugins/jquery/jquery.min.js')?>"></script>
+<!-- DataTables -->
+<script src="<?= base_url('assets/AdminLTE/plugins/datatables/jquery.dataTables.min.js') ?>"></script>
+<script src="<?= base_url('assets/AdminLTE/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
+<script src="<?= base_url('assets/AdminLTE/plugins/datatables-responsive/js/dataTables.responsive.min.js') ?>"></script>
+<script src="<?= base_url('assets/AdminLTE/plugins/datatables-responsive/js/responsive.bootstrap4.min.js') ?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('assets/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets/AdminLTE/dist/js/adminlte.min.js')?>"></script>
+
+<?= $this->renderSection('script') ?>
+
 </body>
 </html>
