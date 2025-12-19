@@ -16,6 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/adminlte.min.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/ppdb-premium.css') ?>">
+
 </head>
 <body class="hold-transition layout-top-nav">
 <div class="wrapper">
@@ -135,8 +137,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE App -->
 <script src="<?= base_url('assets/AdminLTE/dist/js/adminlte.min.js')?>"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="<?= base_url('/AdminLTE/dist/js/demo.js')?>"></script>
+<script src="<?= base_url('assets/AdminLTE/dist/js/demo.js')?>"></script>
+
+<script src="<?= base_url('aassets/AdminLTE/dist/js/ppdb-premium.js') ?>"></script>
+
 </body>
+
 
 
 </html>

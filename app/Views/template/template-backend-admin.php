@@ -1,3 +1,6 @@
+<?php
+$uri = service('uri')->getSegment(1);
+?>
 
 <!DOCTYPE html>
 <!--
@@ -16,15 +19,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/adminlte.min.css')?>">
+    <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/sidebar-premium.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/school-theme.css') ?>">
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand">
     
     <!-- SEARCH FORM -->
-    <h3>Halaman Admin</h3>
+    <h3>Sistem PPDB Online</h3>
   
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -60,40 +65,48 @@ scratch. This page gets rid of all links and provides the needed markup only.
       </div>
 
       
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-            with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Dashboard</p>
-            </a>
-          </li>
+       <!-- Sidebar Menu -->
+        <nav class="mt-3">
+            <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
 
-          <li class="nav-item">
-            <a href="<?= base_url('sekolah') ?>" class="nav-link active">
-              <i class="nav-icon fas fa-solid fa-school"></i>
-              <p>Sekolah</p>
-            </a>
-          </li>
+                <!-- DASHBOARD -->
+                <li class="nav-item">
+                    <a href="<?= base_url('dashboard') ?>"
+                       class="nav-link <?= ($uri == 'dashboard' || $uri == '') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-chart-line"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>pedidikan</p>
-            </a>
-          </li>
+                <!-- SEKOLAH -->
+                <li class="nav-item">
+                    <a href="<?= base_url('sekolah') ?>"
+                       class="nav-link <?= ($uri == 'sekolah') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-school"></i>
+                        <p>Sekolah</p>
+                    </a>
+                </li>
 
-          <li class="nav-item">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>agama</p>
-            </a>
-          </li>
-        </ul>
-      </nav>
+                <!-- PENDIDIKAN -->
+                <li class="nav-item">
+                    <a href="<?= base_url('pendidikan') ?>"
+                       class="nav-link <?= ($uri == 'pendidikan') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-user-graduate"></i>
+                        <p>Pendidikan</p>
+                    </a>
+                </li>
+
+                <!-- AGAMA -->
+                <li class="nav-item">
+                    <a href="<?= base_url('agama') ?>"
+                      class="nav-link <?= ($uri == 'agama') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-praying-hands"></i>
+                        <p>Agama</p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

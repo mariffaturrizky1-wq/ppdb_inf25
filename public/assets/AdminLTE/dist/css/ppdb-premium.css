@@ -1,0 +1,55 @@
+/* ===== LOADING ===== */
+#page-loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #0a2a66, #0d47a1);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.loader {
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(255,255,255,.3);
+    border-top: 6px solid #ffd700;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ===== HERO ===== */
+.hero-premium {
+    background: linear-gradient(135deg, #0d47a1, #1976d2);
+    padding: 80px 20px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.hero-premium h1 {
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.hero-premium p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* ===== CARD EFFECT ===== */
+.card {
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.15);
+}

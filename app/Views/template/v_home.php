@@ -12,8 +12,8 @@
             <div class="card shadow-sm">
                 <div class="card-body text-center">
                     <img src="<?= base_url('ppdb/ppdb1.jpg') ?>"
-                         class="img-fluid"
-                         alt="PPDB Online">
+                        class="img-fluid"
+                        alt="PPDB Online">
                 </div>
             </div>
         </div>
