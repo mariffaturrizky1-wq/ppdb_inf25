@@ -53,3 +53,30 @@
     transform: translateY(-8px);
     box-shadow: 0 10px 25px rgba(0,0,0,.15);
 }
+/* HERO */
+.hero-ppdb {
+  background: linear-gradient(135deg, #0d47a1, #1976d2);
+  color: #fff;
+  border-radius: 16px;
+}
+
+.hero-ppdb h2,
+.hero-ppdb h5,
+.hero-ppdb p {
+  color: #fff;
+}
+
+.hero-img {
+  max-height: 300px;
+}
+
+/* INFO BOX */
+.info-box {
+  border-radius: 12px;
+  transition: transform .2s ease;
+}
+
+.info-box:hover {
+  transform: translateY(-4px);
+}
+

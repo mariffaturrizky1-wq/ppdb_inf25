@@ -1,113 +1,134 @@
 <?= $this->extend('template/template-frontend') ?>
 <?= $this->section('content') ?>
 
+
 <div class="container mt-4">
 
-    <h4 class="mb-4">Pendaftaran Tahun Ajaran 2025/2026</h4>
+    <!-- ================= HERO ================= -->
+    <div class="card hero-ppdb shadow-lg mb-4">
+        <div class="card-body p-5">
+            <div class="row align-items-center">
 
-    <div class="row">
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-3">
+                        Pendaftaran Peserta Didik Baru
+                    </h2>
+                    <h5 class="mb-4">
+                        Tahun Ajaran <strong>2025/2026</strong>
+                    </h5>
 
-        <!-- KONTEN KIRI -->
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body text-center">
+                    <p class="mb-4">
+                        Sistem PPDB Online SMA Wilayah Brebes yang
+                        transparan, cepat, dan akuntabel.
+                    </p>
+
+                    <a href="<?= base_url('auth/daftar') ?>" class="btn btn-success btn-lg mr-2">
+                        <i class="fas fa-user-plus"></i> Daftar Sekarang
+                    </a>
+                    <a href="<?= base_url('pengumuman') ?>" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-bullhorn"></i> Pengumuman
+                    </a>
+                </div>
+
+                <div class="col-md-6 text-center">
                     <img src="<?= base_url('ppdb/ppdb1.jpg') ?>"
-                        class="img-fluid"
-                        alt="PPDB Online">
+                         class="img-fluid rounded hero-img"
+                         alt="PPDB Online">
                 </div>
-            </div>
-        </div>
-
-<!-- KONTEN KANAN -->
-<div class="col-md-4">
-
-    <div class="card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <strong>Estimasi Pendaftar Tahun 2025</strong>
-        </div>
-
-        <div class="card-body">
-
-            <div class="info-box mb-3">
-                <span class="info-box-icon bg-info">
-                    <i class="fas fa-user-graduate"></i>
-                </span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Jumlah Pendaftar</span>
-                    <span class="info-box-number">0</span>
-                </div>
-            </div>
-
-            <div class="info-box mb-3">
-                <span class="info-box-icon bg-success">
-                    <i class="fas fa-male"></i>
-                </span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Jumlah Laki-laki</span>
-                    <span class="info-box-number">0</span>
-                </div>
-            </div>
-
-            <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning">
-                    <i class="fas fa-female"></i>
-                </span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Jumlah Perempuan</span>
-                    <span class="info-box-number">0</span>
-                </div>
-            </div>
-
-        </div> <!-- /.card-body -->
-    </div> <!-- /.card -->
-
-</div> <!-- /.col-md-4 -->
-
-
-<!-- DESKRIPSI BERANDA -->
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card shadow-sm">
-            <div class="card-header">
-                <strong>Beranda</strong>
-            </div>
-
-            <div class="card-body">
-
-                <h5 class="text-primary text-center mb-3">
-                    PPDB Online SMA Wilayah Brebes Tahun Ajaran 2025/2026
-                </h5>
-
-                <p>
-                    PPDB Online adalah sistem layanan yang dirancang untuk memfasilitasi
-                    proses <strong>Penerimaan Peserta Didik Baru (PPDB)</strong> secara
-                    daring, mulai dari pendaftaran, seleksi, hingga pengumuman hasil
-                    seleksi yang dilakukan secara <strong>transparan, cepat, dan akuntabel</strong>.
-                </p>
-
-                <p>
-                    Melalui sistem ini, calon peserta didik dapat melakukan proses
-                    pendaftaran tanpa harus datang langsung ke sekolah, sehingga
-                    mempermudah akses layanan pendidikan bagi masyarakat.
-                </p>
-
-                <hr>
-
-                <h6><strong>Persyaratan Calon Peserta Didik Baru</strong></h6>
-
-                <ol>
-                    <li>Berusia maksimal 21 tahun pada saat pendaftaran.</li>
-                    <li>Memiliki ijazah atau Surat Keterangan Lulus (SKL).</li>
-                    <li>Melengkapi data diri dan data orang tua/wali.</li>
-                    <li>Melampirkan dokumen persyaratan sesuai ketentuan.</li>
-                </ol>
 
             </div>
         </div>
     </div>
+
+    <!-- ================= STATISTIK ================= -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-info">
+                    <i class="fas fa-user-graduate"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Pendaftar</span>
+                    <span class="info-box-number">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-success">
+                    <i class="fas fa-male"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Laki-laki</span>
+                    <span class="info-box-number">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="info-box shadow-sm">
+                <span class="info-box-icon bg-warning">
+                    <i class="fas fa-female"></i>
+                </span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Perempuan</span>
+                    <span class="info-box-number">0</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= DESKRIPSI ================= -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h4 class="text-center text-primary mb-4">
+                PPDB Online SMA Wilayah Brebes
+            </h4>
+
+            <p>
+                <strong>PPDB Online</strong> adalah sistem layanan pendaftaran
+                yang dirancang untuk memfasilitasi proses
+                <strong>Penerimaan Peserta Didik Baru (PPDB)</strong> secara daring,
+                mulai dari pendaftaran, seleksi, hingga pengumuman hasil seleksi
+                secara <strong>transparan, cepat, dan akuntabel</strong>.
+            </p>
+
+            <p>
+                Melalui sistem ini, calon peserta didik dapat melakukan
+                pendaftaran tanpa harus datang langsung ke sekolah,
+                sehingga mempermudah akses layanan pendidikan bagi masyarakat.
+            </p>
+
+            <hr>
+
+            <h6 class="fw-bold">Persyaratan Calon Peserta Didik Baru</h6>
+
+            <ul class="list-unstyled mt-3">
+                <li class="mb-2">
+                    <i class="fas fa-check-circle text-success mr-2"></i>
+                    Berusia maksimal 21 tahun pada saat pendaftaran
+                </li>
+                <li class="mb-2">
+                    <i class="fas fa-check-circle text-success mr-2"></i>
+                    Memiliki ijazah atau Surat Keterangan Lulus (SKL)
+                </li>
+                <li class="mb-2">
+                    <i class="fas fa-check-circle text-success mr-2"></i>
+                    Melengkapi data diri dan data orang tua/wali
+                </li>
+                <li class="mb-2">
+                    <i class="fas fa-check-circle text-success mr-2"></i>
+                    Mengunggah dokumen sesuai ketentuan
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
 </div>
-
-
-
 
 <?= $this->endSection() ?>
