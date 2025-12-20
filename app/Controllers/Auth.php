@@ -7,10 +7,12 @@ use App\Models\ModelAuth;
 
 class Auth extends BaseController
 {
-    public function __construct() 
+    protected $ModelAuth;
+
+    public function __construct()
     {
-        $this->ModelAuth = new ModelAuth();  
-        helper('form'); 
+        $this->ModelAuth = new ModelAuth();
+        helper('form');
     }
 
     public function index()
@@ -18,60 +20,99 @@ class Auth extends BaseController
         return redirect()->to(base_url('auth/login'));
     }
 
+    // ================= LOGIN =================
     public function login()
     {
         $data = [
-        'title' => 'Login',
-        'subtitle' => 'Form Login'
+            'title' => 'Login',
+            'subtitle' => 'Form Login'
         ];
         return view('v_login-user', $data);
     }
+
     public function cek_login_user()
     {
         if ($this->validate([
             'email' => [
                 'label' => 'E-Mail',
-                'rules' => 'required|valid_email',
-                'errors' => [
-                    'required' => '{field} Wajib Diisi !!',
-                    'valid_email' => 'Harus Format Email !!'
-                ]
+                'rules' => 'required|valid_email'
             ],
             'password' => [
                 'label' => 'Password',
-                'rules' => 'required',
-                'errors' => [
-                    'required' => '{field} Wajib Diisi !!',
-                ],
+                'rules' => 'required'
             ]
         ])) {
-            //valid
+
             $email = $this->request->getPost('email');
             $password = $this->request->getPost('password');
-            $cek_login = $this->ModelAuth->login_user($email, $password);
-            if ($cek_login) {
-                session()->set('nama_user',$cek_login['nama_user']);
-                session()->set('email',$cek_login['email']);
-                session()->set('foto',$cek_login['foto']);
-                session()->set('level','admin');
+
+            $user = $this->ModelAuth->login_user($email, $password);
+
+            if ($user) {
+            session()->set([
+            'login' => true,
+            'id_user' => $user['id_user'],
+            'nama_user' => $user['nama_user'],
+            'email' => $user['email'],
+            'foto' => $user['foto'],
+            'level' => $user['level']
+]);
+
+
+
+
                 return redirect()->to(base_url('admin'));
             } else {
-                session()->setFlashdata('pesan', 'Email Atau Password Salah !!!');
+                session()->setFlashdata('pesan', 'Email atau Password salah!');
                 return redirect()->to(base_url('auth/login'));
             }
-            } else {
-                session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
-                return redirect()->to(base_url('auth/login'));
         }
+
+        session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
+        return redirect()->to(base_url('auth/login'));
     }
 
+    // ================= DAFTAR =================
+    public function daftar()
+    {
+        $data = [
+            'title' => 'Daftar',
+            'subtitle' => 'Form Pendaftaran'
+        ];
+        return view('v_daftar-user', $data);
+    }
+
+    public function simpan_daftar()
+    {
+        if ($this->validate([
+            'nama_user' => 'required',
+            'email' => 'required|valid_email|is_unique[tbl_user.email]',
+            'password' => 'required|min_length[6]'
+        ])) {
+
+            $this->ModelAuth->insert([
+                'nama_user' => $this->request->getPost('nama_user'),
+                'email' => $this->request->getPost('email'),
+                'password' => password_hash(
+                    $this->request->getPost('password'),
+                    PASSWORD_DEFAULT
+                ),
+                'level' => 'user'
+            ]);
+
+            session()->setFlashdata('pesan', 'Pendaftaran berhasil, silakan login');
+            return redirect()->to(base_url('auth/login'));
+        }
+
+        session()->setFlashdata('errors', \Config\Services::validation()->getErrors());
+        return redirect()->back();
+    }
+
+    // ================= LOGOUT =================
     public function logout()
     {
-        session()->remove('nama_user');
-        session()->remove('email');
-        session()->remove('foto');
-        session()->remove('level');
-        session()->setFlashdata('pesan', 'Logout Berhasil');
+        session()->destroy();
+        session()->setFlashdata('pesan', 'Logout berhasil');
         return redirect()->to(base_url('auth/login'));
-    }   
+    }
 }

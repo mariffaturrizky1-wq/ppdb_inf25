@@ -2,18 +2,36 @@
 
 namespace App\Models;
 
-use CodeIgniter\Database\SQLite3\Result;
 use CodeIgniter\Model;
 
 class ModelAuth extends Model
 {
+    protected $table      = 'tbl_user';
+    protected $primaryKey = 'id'; // atau id_user
+
+
+    protected $allowedFields = [
+        'nama_user',
+        'email',
+        'password',
+        'foto',
+        'level'
+    ];
+
+    // ================= LOGIN =================
     public function login_user($email, $password)
     {
-        return $this->db->table('tbl_user')->where(
-            [
-                'email' => $email,
-                'password'  => $password
-            ]
-        )->get()->getRowArray();
+        $user = $this->where('email', $email)->first();
+
+        if (!$user) {
+            return false;
+        }
+
+        // CEK PASSWORD HASH
+        if (password_verify($password, $user['password'])) {
+            return $user;
+        }
+
+        return false;
     }
 }

@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <a class="dropdown-item" href="<?= base_url('auth/login') ?>">
                 <i class="fas fa-sign-in-alt mr-2 text-primary"></i> Login
               </a>
-              <a class="dropdown-item" href="<?= base_url('register') ?>">
+              <a class="dropdown-item" href="<?= base_url('auth/daftar') ?>">
                 <i class="fas fa-user-plus mr-2 text-success"></i> Daftar
               </a>
             </div>

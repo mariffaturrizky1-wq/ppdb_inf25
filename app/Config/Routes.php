@@ -10,6 +10,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Home::index');
 $routes->get('auth', 'Auth::index');
 $routes->get('auth/login', 'Auth::login');          // ✅ route ke halaman login
+$routes->get('auth/daftar', 'Auth::daftar');
+$routes->post('auth/simpan_daftar', 'Auth::simpan_daftar');
 $routes->post('auth/cek_login_user', 'Auth::cek_login_user'); // ✅ proses login
 $routes->get('admin', 'Admin::index');
 $routes->get('auth/logout', 'Auth::logout');
@@ -18,4 +20,3 @@ $routes->get('sekolah/create', 'Sekolah::create');
 $routes->post('sekolah/insertData', 'Sekolah::insertData');
 $routes->post('sekolah/update', 'Sekolah::update');
 $routes->post('sekolah/delete', 'Sekolah::delete');
-

@@ -58,10 +58,6 @@
                 </div>
             </div>
 
-            <a href="<?= base_url('auth/login') ?>" class="btn btn-primary btn-block">
-                <i class="fas fa-sign-in-alt"></i> Login / Daftar
-            </a>
-
         </div> <!-- /.card-body -->
     </div> <!-- /.card -->
 
