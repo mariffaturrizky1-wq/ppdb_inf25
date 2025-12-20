@@ -16,6 +16,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/plugins/fontawesome-free/css/all.min.css')?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/adminlte.min.css')?>">
+  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/school-public.css') ?>">
+
   <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/ppdb-premium.css') ?>">
 
 </head>
