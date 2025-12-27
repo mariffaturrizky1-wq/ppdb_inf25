@@ -10,11 +10,11 @@ class ModelSekolah extends Model
     protected $primaryKey = 'id_sekolah';
 
     protected $allowedFields = [
-        'id_sekolah',
         'nama_sekolah',
         'alamat',
         'kuota'
     ];
+
     public function getAllData()
     {
         return $this->db->table('tbl_datasekolah')

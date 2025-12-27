@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 22, 2025 at 03:53 AM
+-- Generation Time: Dec 27, 2025 at 04:59 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `ppdb_inf25`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengumuman`
+--
+
+CREATE TABLE `pengumuman` (
+  `id` int NOT NULL,
+  `judul` varchar(150) DEFAULT NULL,
+  `slug` varchar(150) DEFAULT NULL,
+  `ringkasan` text,
+  `isi` text,
+  `kategori` enum('Umum','PPDB','Seleksi','Pengumuman Penting') DEFAULT 'Umum',
+  `is_active` tinyint(1) DEFAULT '1',
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pengumuman`
+--
+
+INSERT INTO `pengumuman` (`id`, `judul`, `slug`, `ringkasan`, `isi`, `kategori`, `is_active`, `created_at`) VALUES
+(1, 'Pembukaan PPDB Tahun Ajaran 2025/2026', 'pembukaan-ppdb-2025-2026', 'Pendaftaran PPDB Online SMA Tahun Ajaran 2025/2026 telah resmi dibuka.', '<p><strong>Pendaftaran PPDB Online</strong> SMA Wilayah Brebes Tahun Ajaran 2025/2026 telah resmi dibuka.</p>\r\n  <p>Silakan melakukan pendaftaran melalui website resmi PPDB.</p>', 'PPDB', 1, '2025-12-27 11:01:08'),
+(2, 'Jadwal Verifikasi Berkas', 'jadwal-verifikasi-berkas', 'Verifikasi berkas PPDB dilaksanakan sesuai jadwal resmi.', '<p>Verifikasi berkas dilaksanakan pada tanggal <strong>1–3 Juli 2025</strong>.</p>', 'Umum', 1, '2025-12-27 11:01:08'),
+(3, 'Pengumuman Hasil Seleksi', 'hasil-seleksi-ppdb', 'Hasil seleksi PPDB akan diumumkan sesuai jadwal.', '<p>Hasil seleksi PPDB diumumkan pada tanggal <strong>5 Juli 2025</strong>.</p>', 'Seleksi', 1, '2025-12-27 11:01:08');
 
 -- --------------------------------------------------------
 
@@ -55,7 +81,42 @@ INSERT INTO `tbl_datasekolah` (`id_sekolah`, `nama_sekolah`, `alamat`, `kuota`) 
 (18, 'SMA NEGERI 1 BULAKAMBA ', 'Jl.Grinting,Bulakamba,Kab.Brebes', 396),
 (19, 'SMA NEGERI 1 BREBES ', 'Jl.Dr.Setiabudi No.11,Kec.Brebes,Kab.Brebes', 396),
 (20, 'SMA NEGERI 1 SIRAMPOG', 'Jl.Raya Simrampog,Dusun Manggis,Kec.Sirampog,Kab.Brebes', 324),
-(24, 'SMA NEGERI 1 LOSARI', 'Jalan Jend. Sudirman No. 70, Losari Lor, Kecamatan Losari, Kabupaten Brebes, Provinsi Jawa Tengah', 324);
+(24, 'SMA NEGERI 1 LOSARI', 'Jalan Jend. Sudirman No. 70, Losari Lor, Kecamatan Losari, Kabupaten Brebes, Provinsi Jawa Tengah', 324),
+(25, 'SMA Muhammadiyah Brebes ', 'Jl. Yos Sudarso, Kec. Brebes, Kab. Brebes', 340),
+(26, 'SMA Muhammadiyah Bumiayu ', 'Jl. Lingkar Bumiayu, Kec. Bumiayu, Kab. Brebes', 350),
+(27, 'SMA Muhammadiyah Tonjong ', 'Jl. Raya Tonjong, Kec. Tonjong, Kab. Brebes', 320),
+(28, 'SMA Muhammadiyah Larangan ', 'Jl. Raya Larangan, Kec. Larangan, Kab. Brebes', 345),
+(29, 'SMA Ma’arif NU Jatibarang ', 'Jl. Raya Jatibarang, Kec. Jatibarang, Kab. Brebes', 245),
+(30, 'SMA Ma’arif NU Bulakamba ', 'Jl. Raya Bulakamba, Kec. Bulakamba, Kab. Brebes', 350),
+(31, 'SMA Islam Bustanul Ulum', 'Kec. Ketanggungan, Kab. Brebes', 346),
+(32, 'SMA Islam Diponegoro Losari ', ' Kec. Losari, Kab. Brebes', 329),
+(33, 'SMA Nurul Huda Paguyangan ', 'Kec. Paguyangan, Kab. Brebes', 325),
+(34, 'SMA Yanuris Tonjong ', ' Desa Linggapura, Kec. Tonjong, Kab. Brebes', 235),
+(35, 'SMA YPI Brebes ', 'Kec. Brebes, Kab. Brebes', 342),
+(36, 'SMA Al-Falah Larangan ', ' Kec. Larangan, Kab. Brebes', 433),
+(37, 'SMA Al-Huda Bumiayu ', ' Kec. Bumiayu, Kab. Brebes', 333),
+(38, 'SMA Al-Ikhlas Banjarharjo ', ' Kec. Banjarharjo, Kab. Brebes', 430),
+(39, 'SMA Andalusia Jatibarang ', 'Kec. Jatibarang, Kab. Brebes', 360),
+(40, 'SMA Boarding School Brebes', ' Kec. Brebes, Kab. Brebes', 440),
+(41, 'SMA Madani Brebes ', ' Kec. Brebes, Kab. Brebes', 350),
+(42, 'SMA Madani Brebes', ' Kec. Brebes, Kab. Brebes', 355),
+(43, 'SMA Ki Hajar Dewantara Brebes ', ' Kec. Brebes, Kab. Brebes', 344),
+(44, 'SMA Budi Utomo Brebes', ' Kec. Brebes, Kab. Brebes', 324),
+(45, 'SMA Cakra Nenggala Brebes', ' Kec. Brebes, Kab. Brebes', 333),
+(46, 'SMA IC Islamic Centre Brebes ', 'JL. YOS SUDARSO NO. 35 BREBES', 356),
+(47, 'SMA Karya Bhakti Brebes', 'JL. TAMAN SISWA NO. 1 BREBES', 453),
+(48, 'MAN 1 Brebes ', ' Jl. Yos Sudarso, Kec. Brebes, Kab. Brebes', 320),
+(49, 'sma karya bhakti brebes ', 'JL. TAMAN SISWA NO. 1 BREBES', 356),
+(50, 'MA Al-Ikhlas Losari ', ' Kec. Losari, Kab. Brebes', 360),
+(51, 'MA An-Nur Losari ', ' Kec. Losari, Kab. Brebes', 260),
+(52, 'MA Nurul Huda Losari ', 'Kec. Losari, Kab. Brebes', 328),
+(53, 'MA Al-Madina Paguyangan ', ' Kec. Paguyangan, Kab. Brebes', 325),
+(54, 'MA Ma’arif NU Tonjong ', ' Kec. Tonjong, Kab. Brebes', 389),
+(55, 'MA Ma’arif NU Wanasari ', ' Kec. Wanasari, Kab. Brebes', 300),
+(56, 'MA Ma’arif NU Bulakamba ', ' Kec. Bulakamba, Kab. Brebes', 222),
+(57, 'MA Syafa’atul Ummah Bulakamba ', ' Kec. Bulakamba, Kab. Brebes', 346),
+(58, 'MA As-Syamsuriyyah Wanasari', ' Kec. Wanasari, Kab. Brebes', 300),
+(59, 'MA Bhakti Utama NU Songgom ', ' Kec. Songgom, Kab. Brebes', 340);
 
 -- --------------------------------------------------------
 
@@ -87,6 +148,18 @@ INSERT INTO `tbl_user` (`id_user`, `nama_user`, `email`, `password`, `foto`, `le
 --
 
 --
+-- Indexes for table `pengumuman`
+--
+ALTER TABLE `pengumuman`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tbl_datasekolah`
+--
+ALTER TABLE `tbl_datasekolah`
+  ADD PRIMARY KEY (`id_sekolah`);
+
+--
 -- Indexes for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
@@ -95,6 +168,18 @@ ALTER TABLE `tbl_user`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `pengumuman`
+--
+ALTER TABLE `pengumuman`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `tbl_datasekolah`
+--
+ALTER TABLE `tbl_datasekolah`
+  MODIFY `id_sekolah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`

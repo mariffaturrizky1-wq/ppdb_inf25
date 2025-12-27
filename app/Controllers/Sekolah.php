@@ -69,20 +69,24 @@ public function update()
 {
     $id = $this->request->getPost('id_sekolah');
 
-    if (!$id) {
-        dd('ID SEKOLAH KOSONG');
-    }
+        if (!$id || $id == 0) {
+            return redirect()->back()->with('error', 'ID sekolah tidak valid');
+        }
 
-    $data = [
-        'nama_sekolah' => $this->request->getPost('nama_sekolah'),
-        'alamat'       => $this->request->getPost('alamat'),
-        'kuota'        => $this->request->getPost('kuota'),
-    ];
+        $data = [
+            'nama_sekolah' => $this->request->getPost('nama_sekolah'),
+            'alamat'       => $this->request->getPost('alamat'),
+            'kuota'        => $this->request->getPost('kuota'),
+        ];
 
-    $this->ModelSekolah->update($id, $data);
+        $this->ModelSekolah
+            ->where('id_sekolah', (int)$id)
+            ->set($data)
+            ->update();
 
-    return redirect()->to(base_url('sekolah'))
-                    ->with('success', 'Data berhasil diupdate');
+
+        return redirect()->to(base_url('sekolah'))
+                        ->with('success', 'Data berhasil diupdate');
 }
 
 

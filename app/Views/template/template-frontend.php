@@ -31,9 +31,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- LOGO -->
       <a href="<?= base_url() ?>" class="navbar-brand">
         <img src="<?= base_url('assets/AdminLTE/dist/img/AdminLTELogo.png') ?>"
-             alt="Logo"
-             class="brand-image img-circle elevation-3"
-             style="opacity:.8">
+            alt="Logo"
+            class="brand-image img-circle elevation-3"
+            style="opacity:.8">
         <span class="brand-text font-weight-bold">PPDB Online</span>
       </a>
 
@@ -65,7 +65,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle btn btn-outline-primary px-3"
-               href="#" data-toggle="dropdown">
+              href="#" data-toggle="dropdown">
               <i class="fas fa-user-circle"></i> Akun
             </a>
 
@@ -83,7 +83,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle btn btn-primary text-white px-3"
-               href="#" data-toggle="dropdown">
+              href="#" data-toggle="dropdown">
               <i class="fas fa-user"></i> <?= session()->get('nama_user') ?>
             </a>
 
@@ -104,7 +104,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     </div>
   </nav>
-  <!-- =============== END NAVBAR =============== -->
+    <!-- =============== END NAVBAR =============== -->
+
+  <!-- ANNOUNCEMENT BAR -->
+<div class="ppdb-announcement-bar">
+    <div class="ppdb-announcement-track">
+        <span>
+            ⚠️ Pengumuman: Pelaksanaan PPDB Online Tahun Ajaran 2025/2026 
+            tidak dipungut biaya (GRATIS) •
+        </span>
+        <span>
+            ⚠️ Pengumuman: Pelaksanaan PPDB Online Tahun Ajaran 2025/2026 
+            tidak dipungut biaya (GRATIS) •
+        </span>
+    </div>
+</div>
+
 
 
   <!-- ================= CONTENT ================= -->
@@ -141,7 +156,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets/AdminLTE/dist/js/demo.js')?>"></script>
 
-<script src="<?= base_url('aassets/AdminLTE/dist/js/ppdb-premium.js') ?>"></script>
+<script src="<?= base_url('assets/AdminLTE/dist/js/ppdb-premium.js') ?>"></script>
 
 </body>
 
