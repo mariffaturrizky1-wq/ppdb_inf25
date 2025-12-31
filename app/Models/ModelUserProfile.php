@@ -11,9 +11,8 @@ class ModelUserProfile extends Model
 
     protected $allowedFields = [
         'id_user','nama_lengkap','tempat_lahir','tanggal_lahir','jenis_kelamin',
-        'agama','alamat','asal_sekolah','no_hp'
+        'agama','alamat','asal_sekolah','no_hp','foto'
     ];
-
     protected $useTimestamps = true;
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';

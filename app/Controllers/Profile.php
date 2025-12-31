@@ -36,40 +36,71 @@ class Profile extends BaseController
         ]);
     }
 
-    public function update()
-    {
-        if (!session()->get('login')) {
-            return redirect()->to(base_url('auth/login'));
-        }
-
-        $id_user = session()->get('id_user');
-        $profileModel = new ModelUserProfile();
-
-        $rules = [
-            'nama_lengkap'  => 'required|min_length[3]',
-            'tanggal_lahir' => 'permit_empty|valid_date',
-            'no_hp'         => 'permit_empty|min_length[10]|max_length[20]'
-        ];
-
-        if (!$this->validate($rules)) {
-            return redirect()->back()
-                ->withInput()
-                ->with('errors', $this->validator->getErrors());
-        }
-
-        $data = [
-            'nama_lengkap'  => $this->request->getPost('nama_lengkap'),
-            'tempat_lahir'  => $this->request->getPost('tempat_lahir'),
-            'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
-            'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
-            'agama'         => $this->request->getPost('agama'),
-            'alamat'        => $this->request->getPost('alamat'),
-            'asal_sekolah'  => $this->request->getPost('asal_sekolah'),
-            'no_hp'         => $this->request->getPost('no_hp'),
-        ];
-
-        $profileModel->where('id_user', $id_user)->set($data)->update();
-
-        return redirect()->to(base_url('profile'))->with('success', 'Profil berhasil disimpan.');
+public function update()
+{
+    if (!session()->get('login')) {
+        return redirect()->to(base_url('auth/login'));
     }
+
+    $id_user = session()->get('id_user');
+    $profileModel = new \App\Models\ModelUserProfile();
+
+    $rules = [
+        'nama_lengkap'  => 'required|min_length[3]',
+        'tanggal_lahir' => 'permit_empty|valid_date',
+        'no_hp'         => 'permit_empty|min_length[10]|max_length[20]',
+        // validasi file (opsional, tapi kalau ada harus sesuai)
+        'foto'          => 'permit_empty|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]|max_size[foto,2048]',
+    ];
+
+    if (!$this->validate($rules)) {
+        return redirect()->back()
+            ->withInput()
+            ->with('errors', $this->validator->getErrors());
+    }
+
+    // ambil data lama untuk hapus foto lama jika diganti
+    $old = $profileModel->where('id_user', $id_user)->first();
+
+    $data = [
+        'nama_lengkap'  => $this->request->getPost('nama_lengkap'),
+        'tempat_lahir'  => $this->request->getPost('tempat_lahir'),
+        'tanggal_lahir' => $this->request->getPost('tanggal_lahir'),
+        'jenis_kelamin' => $this->request->getPost('jenis_kelamin'),
+        'agama'         => $this->request->getPost('agama'),
+        'alamat'        => $this->request->getPost('alamat'),
+        'asal_sekolah'  => $this->request->getPost('asal_sekolah'),
+        'no_hp'         => $this->request->getPost('no_hp'),
+    ];
+
+    // ===== UPLOAD FOTO =====
+    $file = $this->request->getFile('foto');
+
+    if ($file && $file->isValid() && !$file->hasMoved()) {
+        $newName = $file->getRandomName();
+
+        // simpan ke /public/uploads/profile/
+        $uploadPath = FCPATH . 'uploads/profile/';
+        if (!is_dir($uploadPath)) {
+            mkdir($uploadPath, 0777, true);
+        }
+
+        $file->move($uploadPath, $newName);
+
+        // hapus foto lama kalau ada
+        if (!empty($old['foto'])) {
+            $oldPath = $uploadPath . $old['foto'];
+            if (is_file($oldPath)) {
+                @unlink($oldPath);
+            }
+        }
+
+        $data['foto'] = $newName;
+    }
+
+    $profileModel->where('id_user', $id_user)->set($data)->update();
+
+    return redirect()->to(base_url('profile'))->with('success', 'Profil berhasil disimpan.');
+}
+
 }
