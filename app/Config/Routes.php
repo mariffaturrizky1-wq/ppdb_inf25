@@ -22,3 +22,6 @@ $routes->post('sekolah/update', 'Sekolah::update');
 $routes->post('sekolah/delete', 'Sekolah::delete');
 $routes->get('pengumuman', 'Pengumuman::index');
 $routes->get('pengumuman/(:segment)', 'Pengumuman::detail/$1');
+$routes->get('contact', 'Contact::index');
+$routes->get('profile', 'Profile::index');
+$routes->post('profile/update', 'Profile::update');
