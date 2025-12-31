@@ -69,14 +69,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <nav class="mt-3">
             <ul class="nav nav-pills nav-sidebar flex-column" role="menu">
 
-                <!-- DASHBOARD -->
+                <!-- PROFILE SISWA -->
                 <li class="nav-item">
-                    <a href="<?= base_url('dashboard') ?>"
-                       class="nav-link <?= ($uri == 'dashboard' || $uri == '') ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-chart-line"></i>
-                        <p>Dashboard</p>
+                    <a href="<?= base_url('profile') ?>"
+                      class="nav-link <?= ($uri == 'profile') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Profile Siswa</p>
                     </a>
                 </li>
+
 
                 <!-- SEKOLAH -->
                 <li class="nav-item">

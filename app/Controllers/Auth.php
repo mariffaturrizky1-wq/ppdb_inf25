@@ -43,25 +43,28 @@ class Auth extends BaseController
             ]
         ])) {
 
-            $email = $this->request->getPost('email');
+            $email    = $this->request->getPost('email');
             $password = $this->request->getPost('password');
 
             $user = $this->ModelAuth->login_user($email, $password);
 
             if ($user) {
-            session()->set([
-            'login' => true,
-            'id_user' => $user['id_user'],
-            'nama_user' => $user['nama_user'],
-            'email' => $user['email'],
-            'foto' => $user['foto'],
-            'level' => $user['level']
-]);
+                // SET SESSION
+                session()->set([
+                    'login'     => true,          // kamu pakai ini
+                    'id_user'   => $user['id_user'],
+                    'nama_user' => $user['nama_user'],
+                    'email'     => $user['email'],
+                    'foto'      => $user['foto'] ?? null,
+                    'level'     => $user['level'] ?? 'user'
+                ]);
 
+                // REDIRECT: admin ke admin, user ke profile
+                if (session()->get('level') === 'admin') {
+                    return redirect()->to(base_url('admin'));
+                }
 
-
-
-                return redirect()->to(base_url('admin'));
+                return redirect()->to(base_url('profile'));
             } else {
                 session()->setFlashdata('pesan', 'Email atau Password salah!');
                 return redirect()->to(base_url('auth/login'));
@@ -92,12 +95,9 @@ class Auth extends BaseController
 
             $this->ModelAuth->insert([
                 'nama_user' => $this->request->getPost('nama_user'),
-                'email' => $this->request->getPost('email'),
-                'password' => password_hash(
-                    $this->request->getPost('password'),
-                    PASSWORD_DEFAULT
-                ),
-                'level' => 'user'
+                'email'     => $this->request->getPost('email'),
+                'password'  => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+                'level'     => 'user'
             ]);
 
             session()->setFlashdata('pesan', 'Pendaftaran berhasil, silakan login');
