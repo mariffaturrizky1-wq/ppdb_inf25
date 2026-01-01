@@ -25,3 +25,5 @@ $routes->get('pengumuman/(:segment)', 'Pengumuman::detail/$1');
 $routes->get('contact', 'Contact::index');
 $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update');
+$routes->get('pendaftaran', 'Pendaftaran::index');
+$routes->post('pendaftaran/simpan', 'Pendaftaran::simpan');

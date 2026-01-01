@@ -97,12 +97,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                 </li>
 
-                <!-- AGAMA -->
+                <!-- PENDAFTARAN -->
                 <li class="nav-item">
-                    <a href="<?= base_url('agama') ?>"
-                      class="nav-link <?= ($uri == 'agama') ? 'active' : '' ?>">
-                        <i class="nav-icon fas fa-praying-hands"></i>
-                        <p>Agama</p>
+                    <a href="<?= base_url('pendaftaran') ?>"
+                       class="nav-link <?= ($uri == 'pendaftaran') ? 'active' : '' ?>">
+                        <i class="nav-icon fas fa-pencil-alt"></i>
+                        <span>Pendaftaran</span>
                     </a>
                 </li>
 
