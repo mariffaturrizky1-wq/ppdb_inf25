@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 27, 2025 at 04:59 AM
+-- Generation Time: Jan 01, 2026 at 02:56 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -43,7 +43,7 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id`, `judul`, `slug`, `ringkasan`, `isi`, `kategori`, `is_active`, `created_at`) VALUES
-(1, 'Pembukaan PPDB Tahun Ajaran 2025/2026', 'pembukaan-ppdb-2025-2026', 'Pendaftaran PPDB Online SMA Tahun Ajaran 2025/2026 telah resmi dibuka.', '<p><strong>Pendaftaran PPDB Online</strong> SMA Wilayah Brebes Tahun Ajaran 2025/2026 telah resmi dibuka.</p>\r\n  <p>Silakan melakukan pendaftaran melalui website resmi PPDB.</p>', 'PPDB', 1, '2025-12-27 11:01:08'),
+(1, 'Pembukaan PPDB Tahun Ajaran 2025/2026', 'pembukaan-ppdb-2025-2026', 'Pendaftaran PPDB Online SMA Tahun Ajaran 2025/2026 telah resmi dibuka.Seluruh calon peserta didik dapat melakukan pendaftaran melalui sistem PPDB sesuai jadwal dan ketentuan yang berlaku.', '<h3>Jadwal Penting</h3>\r\n<ul>\r\n  <li><strong>Pembukaan Pendaftaran:</strong> 27 Desember 2025</li>\r\n  <li><strong>Verifikasi Berkas:</strong> 28–30 Desember 2025</li>\r\n  <li><strong>Pengumuman Hasil Seleksi:</strong> 31 Desember 2025</li>\r\n</ul>\r\n\r\n<h3>Langkah Pendaftaran</h3>\r\n<ol>\r\n  <li>Masuk ke menu <strong>Akun</strong> dan lakukan registrasi.</li>\r\n  <li>Lengkapi data diri dan pilih jalur pendaftaran yang sesuai.</li>\r\n  <li>Unggah berkas persyaratan (format jelas dan dapat terbaca).</li>\r\n  <li>Pastikan data benar, lalu <strong>kirim pendaftaran</strong>.</li>\r\n  <li>Pantau status verifikasi dan pengumuman pada menu <strong>Pengumuman</strong>.</li>\r\n</ol>\r\n\r\n<blockquote>\r\n  <strong>Catatan:</strong> PPDB dilaksanakan secara <strong>online</strong> dan <strong>gratis</strong>. Waspada terhadap segala bentuk penipuan yang mengatasnamakan PPDB.\r\n</blockquote>\r\n\r\n<h3>Persyaratan Umum</h3>\r\n<ul>\r\n  <li>Dokumen identitas (KK/KTP orang tua/wali sesuai ketentuan).</li>\r\n  <li>Rapor/Surat Keterangan Lulus (sesuai jalur).</li>\r\n  <li>Dokumen pendukung jalur (Prestasi/Afirmasi/Zonasi) bila diperlukan.</li>\r\n</ul>\r\n\r\n<p>Apabila terdapat kendala, silakan menghubungi panitia PPDB melalui menu <strong>Kontak</strong> atau datang langsung ke sekolah tujuan pada jam kerja.</p>\r\n\r\n<p><em>— Panitia PPDB Online SMA BREBES</em></p>\r\n', 'PPDB', 1, '2025-12-27 11:01:08'),
 (2, 'Jadwal Verifikasi Berkas', 'jadwal-verifikasi-berkas', 'Verifikasi berkas PPDB dilaksanakan sesuai jadwal resmi.', '<p>Verifikasi berkas dilaksanakan pada tanggal <strong>1–3 Juli 2025</strong>.</p>', 'Umum', 1, '2025-12-27 11:01:08'),
 (3, 'Pengumuman Hasil Seleksi', 'hasil-seleksi-ppdb', 'Hasil seleksi PPDB akan diumumkan sesuai jadwal.', '<p>Hasil seleksi PPDB diumumkan pada tanggal <strong>5 Juli 2025</strong>.</p>', 'Seleksi', 1, '2025-12-27 11:01:08');
 
@@ -138,10 +138,39 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `email`, `password`, `foto`, `level`) VALUES
-(2, 'exando dhaniar outra', 'ekhsangagalngentod@gmail.com', '$2y$10$26VTSlIUR9GWGVRdPDjjl.yyZXf4BOIro7AbaWVDBCm8ZedIJ0BSu', NULL, 'user'),
+(2, 'exando dhaniar outra', 'ekhsangagalngentod@gmail.com', '$2y$10$26VTSlIUR9GWGVRdPDjjl.yyZXf4BOIro7AbaWVDBCm8ZedIJ0BSu', NULL, 'admin'),
 (3, 'naufal fajar', 'nopalfjr29@gmail.com', '$2y$10$dDnC6OC8zKh9k7Mu2btr4.70acsV04krf9mTslyMxQzXJQidZZlEC', NULL, 'user'),
 (4, 'Rizky', 'kyyfatur12@gmail.com', '$2y$10$GixwMdJO1WtwZfhEV8jXvuOCP581GxaM7h6fom6znq1ZophVMEgoe', NULL, 'user'),
-(5, 'Administrator', 'admin@gmail.com', '$2y$10$Yk/bTC1F1YKJ3GZAP8IfZuZNnWa7nUl/OgAgDbWwd3uoJ8//VbBqW', NULL, 'user');
+(5, 'Administrator', 'admin@gmail.com', '$2y$10$Yk/bTC1F1YKJ3GZAP8IfZuZNnWa7nUl/OgAgDbWwd3uoJ8//VbBqW', NULL, 'admin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_user_profile`
+--
+
+CREATE TABLE `tbl_user_profile` (
+  `id_profile` int NOT NULL,
+  `id_user` int NOT NULL,
+  `nama_lengkap` varchar(100) NOT NULL,
+  `tempat_lahir` varchar(50) DEFAULT NULL,
+  `tanggal_lahir` date DEFAULT NULL,
+  `jenis_kelamin` enum('L','P') DEFAULT NULL,
+  `agama` varchar(20) DEFAULT NULL,
+  `alamat` text,
+  `asal_sekolah` varchar(120) DEFAULT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `tbl_user_profile`
+--
+
+INSERT INTO `tbl_user_profile` (`id_profile`, `id_user`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `alamat`, `asal_sekolah`, `no_hp`, `foto`, `created_at`, `updated_at`) VALUES
+(1, 5, 'Muhammad Rizky', 'Jatiroto', '2006-12-02', 'L', 'Islam', 'KALIWADAS KRAJAN TENGAH RT 01 RW 03', 'SMP ISLAM T HUDA', '081326335241', '1767180379_a6e9baac5801c7957664.jpeg', '2025-12-31 09:45:19', '2025-12-31 11:49:42');
 
 --
 -- Indexes for dumped tables
@@ -166,6 +195,13 @@ ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
+-- Indexes for table `tbl_user_profile`
+--
+ALTER TABLE `tbl_user_profile`
+  ADD PRIMARY KEY (`id_profile`),
+  ADD UNIQUE KEY `uq_profile_user` (`id_user`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -179,13 +215,19 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `tbl_datasekolah`
 --
 ALTER TABLE `tbl_datasekolah`
-  MODIFY `id_sekolah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id_sekolah` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `tbl_user_profile`
+--
+ALTER TABLE `tbl_user_profile`
+  MODIFY `id_profile` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
