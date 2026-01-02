@@ -82,25 +82,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- SEKOLAH -->
                 <li class="nav-item">
                     <a href="<?= base_url('sekolah') ?>"
-                       class="nav-link <?= ($uri == 'sekolah') ? 'active' : '' ?>">
+                      class="nav-link <?= ($uri == 'sekolah') ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-school"></i>
                         <p>Sekolah</p>
                     </a>
                 </li>
 
-                <!-- PENDIDIKAN -->
+                <!-- INFORMASI PPDB -->
                 <li class="nav-item">
-                    <a href="<?= base_url('pendidikan') ?>"
-                       class="nav-link <?= ($uri == 'pendidikan') ? 'active' : '' ?>">
+                    <a href="<?= base_url('informasi-ppdb') ?>"
+                      class="nav-link <?= ($uri == 'informasi-ppdb') ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-user-graduate"></i>
-                        <p>Pendidikan</p>
+                        <p>Informasi PPDB</p>
                     </a>
                 </li>
+
+                
 
                 <!-- PENDAFTARAN -->
                 <li class="nav-item">
                     <a href="<?= base_url('pendaftaran') ?>"
-                       class="nav-link <?= ($uri == 'pendaftaran') ? 'active' : '' ?>">
+                      class="nav-link <?= ($uri == 'pendaftaran') ? 'active' : '' ?>">
                         <i class="nav-icon fas fa-pencil-alt"></i>
                         <span>Pendaftaran</span>
                     </a>

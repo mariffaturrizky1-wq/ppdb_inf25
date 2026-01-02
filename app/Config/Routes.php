@@ -27,3 +27,4 @@ $routes->get('profile', 'Profile::index');
 $routes->post('profile/update', 'Profile::update');
 $routes->get('pendaftaran', 'Pendaftaran::index');
 $routes->post('pendaftaran/simpan', 'Pendaftaran::simpan');
+$routes->get('informasi-ppdb', 'InformasiPpdb::index');
