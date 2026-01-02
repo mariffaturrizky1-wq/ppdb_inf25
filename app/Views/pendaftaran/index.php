@@ -3,168 +3,236 @@
 
 <style>
 /* =========================================================
-   PPDB Premium Government UI (Full Code - Single File)
-   Target: lebih mewah, berwarna, elegan, rapi & hilangkan putih
+   PPDB GOV SIGNATURE UI (Premium, tidak polos)
+   - Full background motif lembut
+   - Hero resmi + badge & ornament
+   - Stepper glossy
+   - Card glass + section divider
+   - Upload card premium
+   - Input lebih hidup tapi tetap elegan
    ========================================================= */
+
 :root{
   --navy:#0B2F55;
+  --navy2:#082845;
   --blue:#0F4C81;
+  --blue2:#1362a6;
   --sky:#EAF2FF;
   --gold:#F2B705;
-  --bg1:#F4F8FF;
-  --bg2:#EEF3FB;
-  --card:#FFFFFF;
-  --text:#122033;
+  --gold2:#ffd24a;
+
+  --bg1:#f5f8ff;
+  --bg2:#eef3fb;
+
+  --card:#ffffff;
+  --text:#0f1d2e;
   --muted:#6B7A90;
+
   --border:rgba(15,76,129,.16);
-  --shadow: 0 18px 40px rgba(9, 27, 52, .10);
-  --shadow2: 0 10px 24px rgba(9, 27, 52, .08);
+  --border2:rgba(15,76,129,.10);
+
+  --shadow: 0 22px 54px rgba(9, 27, 52, .14);
+  --shadow2: 0 12px 28px rgba(9, 27, 52, .10);
+  --shadow3: 0 8px 18px rgba(9, 27, 52, .10);
+
+  --radius:22px;
 }
 
-/* Force background full width on AdminLTE */
+/* AdminLTE override */
 .content-wrapper{ background: transparent !important; }
-.content{ padding-top: 18px !important; }
+.content{ padding-top: 16px !important; }
 
-/* Full-page premium background */
-.ppdb-premium{
+/* FULL PAGE BACKGROUND (motif halus) */
+.ppdb-page{
   min-height: calc(100vh - 120px);
   padding: 18px 14px 34px;
   background:
-    radial-gradient(1200px 500px at 18% 0%, rgba(15,76,129,.18) 0%, rgba(15,76,129,0) 55%),
-    radial-gradient(1000px 420px at 85% 20%, rgba(242,183,5,.14) 0%, rgba(242,183,5,0) 56%),
+    radial-gradient(1100px 520px at 12% 0%, rgba(19,98,166,.16) 0%, rgba(19,98,166,0) 58%),
+    radial-gradient(900px 420px at 86% 18%, rgba(242,183,5,.13) 0%, rgba(242,183,5,0) 58%),
     linear-gradient(180deg, var(--bg1), var(--bg2));
-}
-
-/* Wider container for better proportions */
-.ppdb-container{
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-/* Hero */
-.ppdb-hero{
-  background: linear-gradient(135deg, var(--navy), var(--blue));
-  border-radius: 24px;
-  color: #fff;
-  padding: 22px 22px;
-  box-shadow: 0 18px 40px rgba(11,47,85,.22);
   position: relative;
   overflow: hidden;
 }
-.ppdb-hero:before{
+.ppdb-page:before{
   content:"";
   position:absolute;
-  width: 360px; height: 360px;
-  right: -140px; top: -170px;
-  background: radial-gradient(circle, rgba(242,183,5,.22), rgba(242,183,5,0) 62%);
-  border-radius: 50%;
+  inset:0;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(15,76,129,.06) 1px, transparent 0);
+  background-size: 18px 18px;
+  opacity:.55;
+  pointer-events:none;
 }
-.ppdb-hero:after{
-  content:"";
-  position:absolute;
-  width: 260px; height: 260px;
-  left: -120px; bottom: -150px;
-  background: radial-gradient(circle, rgba(255,255,255,.14), rgba(255,255,255,0) 62%);
-  border-radius: 50%;
-}
-.ppdb-hero .title{
-  margin: 0;
-  font-weight: 900;
-  letter-spacing: .2px;
-  font-size: 1.55rem;
-  position: relative;
-  z-index: 1;
-}
-.ppdb-hero .subtitle{
-  margin: 7px 0 0;
-  opacity: .92;
-  font-size: 1rem;
+
+/* Layout container */
+.ppdb-container{
+  max-width: 1120px;
+  margin: 0 auto;
   position: relative;
   z-index: 1;
 }
 
-/* Chips */
-.ppdb-chips{
+/* HERO (lebih hidup) */
+.hero{
+  background: linear-gradient(135deg, var(--navy2), var(--blue));
+  border-radius: calc(var(--radius) + 4px);
+  color:#fff;
+  padding: 22px 22px;
+  box-shadow: 0 20px 52px rgba(11,47,85,.26);
+  position: relative;
+  overflow:hidden;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width: 520px; height: 520px;
+  right:-240px; top:-320px;
+  background: radial-gradient(circle, rgba(242,183,5,.26), rgba(242,183,5,0) 62%);
+  border-radius:50%;
+}
+.hero:after{
+  content:"";
+  position:absolute;
+  width: 420px; height: 420px;
+  left:-220px; bottom:-280px;
+  background: radial-gradient(circle, rgba(255,255,255,.18), rgba(255,255,255,0) 62%);
+  border-radius:50%;
+}
+
+.hero-top{
   display:flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  align-items:flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.hero h3{
+  margin:0;
+  font-weight: 950;
+  letter-spacing:.2px;
+  font-size: 1.65rem;
+}
+.hero p{
+  margin: 7px 0 0;
+  opacity:.92;
+  font-size: 1rem;
+  max-width: 820px;
+}
+
+/* Badge resmi */
+.hero-badges{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
   margin-top: 14px;
   position: relative;
   z-index: 1;
 }
-.ppdb-chip{
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.18);
-  color:#fff;
+.badge-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
   padding: 8px 12px;
   border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.18);
   font-size: .86rem;
-  display:flex;
-  align-items:center;
-  gap: 8px;
+  font-weight: 800;
 }
 
-/* Stepper */
-.ppdb-stepper{
+/* STEP PER (lebih modern) */
+.stepper{
   display:grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 10px;
   margin: 14px 0 16px;
 }
-.ppdb-step{
+.step{
   background: rgba(255,255,255,.92);
   border: 1px solid var(--border);
   border-radius: 18px;
   padding: 10px 12px;
-  box-shadow: var(--shadow2);
+  box-shadow: var(--shadow3);
   display:flex;
   align-items:center;
   gap: 10px;
-  min-height: 60px;
+  min-height: 62px;
+  position: relative;
+  overflow: hidden;
 }
-.ppdb-step .num{
-  width: 34px; height: 34px;
-  border-radius: 13px;
-  background: linear-gradient(180deg, #EAF2FF, #F6FAFF);
-  border: 1px solid rgba(15,76,129,.18);
+.step:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg, rgba(19,98,166,.10), rgba(242,183,5,.06));
+  opacity:.75;
+  pointer-events:none;
+}
+.step .num{
+  width: 36px; height: 36px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #EAF2FF, #F7FBFF);
+  border: 1px solid rgba(15,76,129,.20);
   color: var(--blue);
-  font-weight: 900;
+  font-weight: 950;
   display:grid;
   place-items:center;
+  flex:0 0 auto;
+  position: relative;
+  z-index: 1;
 }
-.ppdb-step .label{
-  font-weight: 900;
+.step .txt{
+  position: relative;
+  z-index: 1;
+}
+.step .label{
+  font-weight: 950;
   color: var(--text);
   font-size:.93rem;
   line-height:1.1;
 }
-.ppdb-step .hint{
+.step .hint{
   font-size:.78rem;
   color: var(--muted);
   margin-top:2px;
 }
 @media (max-width: 991px){
-  .ppdb-stepper{ grid-template-columns: 1fr; }
+  .stepper{ grid-template-columns: 1fr; }
 }
 
-/* Main card (glass) */
-.ppdb-card{
+/* MAIN GLASS CARD */
+.card-glass{
   border-radius: 24px;
   background: rgba(255,255,255,.86);
-  backdrop-filter: blur(9px);
-  border: 1px solid rgba(255,255,255,.55);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.58);
   box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
 }
-.ppdb-card .card-body{ padding: 26px; }
+.card-glass:before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(700px 220px at 18% 0%, rgba(19,98,166,.10), transparent 60%),
+              radial-gradient(700px 220px at 88% 18%, rgba(242,183,5,.08), transparent 60%);
+  pointer-events:none;
+}
+.card-glass .card-body{
+  padding: 26px;
+  position: relative;
+  z-index: 1;
+}
 @media (min-width:768px){
-  .ppdb-card .card-body{ padding: 34px; }
+  .card-glass .card-body{ padding: 34px; }
 }
 
-/* Info box */
-.ppdb-info{
-  background: linear-gradient(180deg, rgba(242,183,5,.16), rgba(242,183,5,.08));
-  border: 1px solid rgba(242,183,5,.32);
-  color: #6b5200;
+/* ALERT INFO (lebih elegan) */
+.notice{
+  background: linear-gradient(180deg, rgba(242,183,5,.18), rgba(242,183,5,.08));
+  border: 1px solid rgba(242,183,5,.34);
+  color:#6b5200;
   border-radius: 18px;
   padding: 12px 14px;
   display:flex;
@@ -172,90 +240,118 @@
   align-items:flex-start;
 }
 
-/* Sections */
-.ppdb-section{
+/* SECTION */
+.section{
   padding-top: 18px;
   margin-top: 18px;
   border-top: 1px dashed rgba(15,76,129,.18);
 }
-.ppdb-section:first-of-type{ padding-top: 0; margin-top: 0; border-top: none; }
+.section:first-of-type{ padding-top:0; margin-top:0; border-top:none; }
 
-.ppdb-section-title{
+.section-head{
   display:flex;
   justify-content: space-between;
   align-items:center;
+  gap: 12px;
   margin-bottom: 12px;
 }
-.ppdb-section-title h6{
-  margin: 0;
-  font-weight: 900;
+.section-title{
+  margin:0;
+  font-weight: 950;
   color: var(--navy);
   display:flex;
   align-items:center;
   gap: 10px;
 }
-.ppdb-dot{
-  width: 10px; height: 10px;
-  border-radius: 50%;
+.dot{
+  width:10px;height:10px;border-radius:50%;
   background: var(--gold);
   box-shadow: 0 0 0 8px rgba(242,183,5,.14);
 }
-.ppdb-mini{ margin:0; color: var(--muted); font-size:.9rem; }
+.section-sub{
+  margin:0;
+  color: var(--muted);
+  font-size: .9rem;
+}
 
-/* Inputs */
-.form-label{ font-weight: 900 !important; color: var(--text); }
+/* INPUTS (lebih premium) */
+.form-label{
+  font-weight: 950 !important;
+  color: var(--text);
+  letter-spacing: .1px;
+}
 .form-control, .form-select{
   border-radius: 14px !important;
   border: 1px solid rgba(15,76,129,.22) !important;
   padding: 12px 14px !important;
-  background: rgba(255,255,255,.92) !important;
+  background: rgba(255,255,255,.96) !important;
+  box-shadow: 0 8px 16px rgba(9,27,52,.05);
 }
+.form-control::placeholder{ color: rgba(107,122,144,.75); }
 .form-control:focus, .form-select:focus{
-  border-color: rgba(15,76,129,.55) !important;
-  box-shadow: 0 0 0 .22rem rgba(15,76,129,.12) !important;
+  border-color: rgba(19,98,166,.65) !important;
+  box-shadow: 0 0 0 .22rem rgba(19,98,166,.12) !important;
 }
 
-/* Input icons */
-.ppdb-iconwrap{ position: relative; }
-.ppdb-iconwrap i{
+/* input icon */
+.iconwrap{ position: relative; }
+.iconwrap i{
   position: absolute; left: 14px; top: 50%;
   transform: translateY(-50%);
-  color: rgba(15,76,129,.68);
+  color: rgba(15,76,129,.70);
 }
-.ppdb-iconwrap .form-control{ padding-left: 42px !important; }
+.iconwrap .form-control{ padding-left: 42px !important; }
 
-/* Upload cards */
-.ppdb-upload{
-  background: rgba(255,255,255,.92);
-  border: 1px dashed rgba(15,76,129,.32);
+/* helper note */
+.note{
+  color: var(--muted);
+  font-size:.84rem;
+  margin-top: 6px;
+}
+
+/* UPLOAD CARD */
+.upload-card{
+  background: rgba(255,255,255,.94);
+  border: 1px dashed rgba(15,76,129,.30);
   border-radius: 18px;
   padding: 14px;
+  box-shadow: var(--shadow3);
+  position: relative;
 }
-.ppdb-note{ color: var(--muted); font-size:.84rem; margin-top: 6px; }
+.upload-card:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(135deg, rgba(19,98,166,.06), rgba(242,183,5,.05));
+  border-radius: 18px;
+  pointer-events:none;
+}
 
-/* Buttons */
-.btn-ppdb{
-  background: linear-gradient(135deg, var(--navy), var(--blue));
+/* BUTTONS */
+.btn-main{
+  background: linear-gradient(135deg, var(--navy2), var(--blue2));
   border: none;
   color:#fff;
-  font-weight: 900;
+  font-weight: 950;
   border-radius: 999px;
   padding: 12px 22px;
-  box-shadow: 0 16px 26px rgba(11,47,85,.22);
+  box-shadow: 0 18px 30px rgba(11,47,85,.22);
 }
-.btn-ppdb:hover{ filter: brightness(1.03); color:#fff; }
+.btn-main:hover{ filter: brightness(1.04); color:#fff; transform: translateY(-1px); transition:.15s ease; }
 
-.btn-ghost{
+.btn-soft{
   border: 1px solid rgba(15,76,129,.24);
-  background: rgba(255,255,255,.92);
+  background: rgba(255,255,255,.94);
   color: var(--navy);
-  font-weight: 900;
+  font-weight: 950;
   border-radius: 999px;
   padding: 12px 18px;
+  box-shadow: 0 10px 18px rgba(9,27,52,.08);
 }
+.btn-soft:hover{ transform: translateY(-1px); transition:.15s ease; }
 
-/* Footer line */
-.ppdb-footer{
+/* FOOTER */
+.footer{
   display:flex;
   justify-content: space-between;
   align-items:center;
@@ -263,7 +359,7 @@
   flex-wrap: wrap;
   margin-top: 18px;
 }
-.ppdb-lock{
+.lock{
   color: var(--muted);
   display:flex;
   align-items:center;
@@ -272,62 +368,37 @@
 }
 </style>
 
-<div class="ppdb-premium">
+<div class="ppdb-page">
   <div class="ppdb-container">
 
     <!-- HERO -->
-    <div class="ppdb-hero">
-      <h3 class="title"><i class="fa-solid fa-landmark me-2"></i> PPDB Online SMA Kabupaten Brebes</h3>
-      <p class="subtitle">Formulir resmi pendaftaran — isi sesuai dokumen (KK, Akta, Ijazah/SKL).</p>
+    <div class="hero">
+      <div class="hero-top">
+        <div>
+          <h3><i class="fa-solid fa-landmark me-2"></i> PPDB Online SMA Kabupaten Brebes</h3>
+          <p>Formulir resmi pendaftaran — isi sesuai dokumen (KK, Akta, Ijazah/SKL) agar proses verifikasi lancar.</p>
 
-      <div class="ppdb-chips">
-        <div class="ppdb-chip"><i class="fa-solid fa-shield-halved"></i> Aman & Terenkripsi</div>
-        <div class="ppdb-chip"><i class="fa-solid fa-clock"></i> Proses Cepat</div>
-        <div class="ppdb-chip"><i class="fa-solid fa-file-circle-check"></i> Verifikasi Berkas</div>
+          <div class="hero-badges">
+            <div class="badge-pill"><i class="fa-solid fa-shield-halved"></i> Aman & Terenkripsi</div>
+            <div class="badge-pill"><i class="fa-solid fa-file-circle-check"></i> Verifikasi Berkas</div>
+            <div class="badge-pill"><i class="fa-solid fa-clock"></i> Proses Cepat</div>
+            <div class="badge-pill"><i class="fa-solid fa-circle-check"></i> Layanan Resmi</div>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- STEPPER -->
-    <div class="ppdb-stepper">
-      <div class="ppdb-step">
-        <div class="num">1</div>
-        <div>
-          <div class="label">Data Pribadi</div>
-          <div class="hint">NISN & asal sekolah</div>
-        </div>
-      </div>
-      <div class="ppdb-step">
-        <div class="num">2</div>
-        <div>
-          <div class="label">Alamat</div>
-          <div class="hint">Kecamatan & desa</div>
-        </div>
-      </div>
-      <div class="ppdb-step">
-        <div class="num">3</div>
-        <div>
-          <div class="label">Pilihan Sekolah</div>
-          <div class="hint">Pilihan 1 & 2</div>
-        </div>
-      </div>
-      <div class="ppdb-step">
-        <div class="num">4</div>
-        <div>
-          <div class="label">Dokumen</div>
-          <div class="hint">KK, Akta, Ijazah</div>
-        </div>
-      </div>
-      <div class="ppdb-step">
-        <div class="num">5</div>
-        <div>
-          <div class="label">Kirim</div>
-          <div class="hint">Pernyataan & submit</div>
-        </div>
-      </div>
+    <div class="stepper">
+      <div class="step"><div class="num">1</div><div class="txt"><div class="label">Data Pribadi</div><div class="hint">NISN & asal sekolah</div></div></div>
+      <div class="step"><div class="num">2</div><div class="txt"><div class="label">Alamat</div><div class="hint">Kecamatan & desa</div></div></div>
+      <div class="step"><div class="num">3</div><div class="txt"><div class="label">Pilihan Sekolah</div><div class="hint">Pilihan 1 & 2</div></div></div>
+      <div class="step"><div class="num">4</div><div class="txt"><div class="label">Dokumen</div><div class="hint">KK, Akta, Ijazah</div></div></div>
+      <div class="step"><div class="num">5</div><div class="txt"><div class="label">Kirim</div><div class="hint">Pernyataan & submit</div></div></div>
     </div>
 
     <!-- MAIN CARD -->
-    <div class="card ppdb-card">
+    <div class="card card-glass">
       <div class="card-body">
 
         <?php if (session()->getFlashdata('success')): ?>
@@ -344,10 +415,10 @@
           </div>
         <?php endif; ?>
 
-        <div class="ppdb-info mb-3">
+        <div class="notice mb-3">
           <i class="fa-solid fa-circle-info mt-1"></i>
           <div>
-            <div style="font-weight:900;">Perhatian</div>
+            <div style="font-weight:950;">Perhatian</div>
             <div style="font-size:.92rem;">
               Pastikan data sesuai dokumen. Berkas wajib jelas (PDF/JPG/PNG), maksimal 2MB per file.
             </div>
@@ -357,29 +428,27 @@
         <form action="<?= base_url('pendaftaran/simpan') ?>" method="post" enctype="multipart/form-data">
           <?= csrf_field() ?>
 
-          <!-- SECTION: Data Pribadi -->
-          <div class="ppdb-section">
-            <div class="ppdb-section-title">
-              <h6><span class="ppdb-dot"></span><i class="fa-solid fa-id-card"></i> Data Pribadi</h6>
-              <p class="ppdb-mini">Isi sesuai ijazah/rapor</p>
+          <!-- DATA PRIBADI -->
+          <div class="section">
+            <div class="section-head">
+              <h6 class="section-title"><span class="dot"></span><i class="fa-solid fa-id-card"></i> Data Pribadi</h6>
+              <p class="section-sub">Isi sesuai ijazah/rapor</p>
             </div>
 
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Nama Lengkap</label>
-                <div class="ppdb-iconwrap">
+                <div class="iconwrap">
                   <i class="fa-solid fa-user"></i>
-                  <input type="text" name="nama_lengkap" class="form-control"
-                         placeholder="Contoh: Ahmad Maulana" required>
+                  <input type="text" name="nama_lengkap" class="form-control" placeholder="Contoh: Ahmad Maulana" required>
                 </div>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label class="form-label">NISN</label>
-                <div class="ppdb-iconwrap">
+                <div class="iconwrap">
                   <i class="fa-solid fa-hashtag"></i>
-                  <input type="text" name="nisn" class="form-control"
-                         placeholder="10 digit" maxlength="10" required>
+                  <input type="text" name="nisn" class="form-control" placeholder="10 digit" maxlength="10" required>
                 </div>
               </div>
             </div>
@@ -387,10 +456,9 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Asal Sekolah</label>
-                <div class="ppdb-iconwrap">
+                <div class="iconwrap">
                   <i class="fa-solid fa-school"></i>
-                  <input type="text" name="asal_sekolah" class="form-control"
-                         placeholder="SMP/MTs ..." required>
+                  <input type="text" name="asal_sekolah" class="form-control" placeholder="SMP/MTs ..." required>
                 </div>
               </div>
 
@@ -408,29 +476,27 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label class="form-label">Nilai Rata-rata</label>
-                <div class="ppdb-iconwrap">
+                <div class="iconwrap">
                   <i class="fa-solid fa-star"></i>
-                  <input type="number" step="0.01" name="nilai" class="form-control"
-                         placeholder="Contoh: 87.50" min="0" max="100" required>
+                  <input type="number" step="0.01" name="nilai" class="form-control" placeholder="Contoh: 87.50" min="0" max="100" required>
                 </div>
-                <div class="ppdb-note">Gunakan format angka desimal (contoh: 87.50).</div>
+                <div class="note">Gunakan format angka desimal (contoh: 87.50).</div>
               </div>
             </div>
           </div>
 
-          <!-- SECTION: Alamat -->
-          <div class="ppdb-section">
-            <div class="ppdb-section-title">
-              <h6><span class="ppdb-dot"></span><i class="fa-solid fa-location-dot"></i> Alamat Domisili</h6>
-              <p class="ppdb-mini">Sesuai KK</p>
+          <!-- ALAMAT -->
+          <div class="section">
+            <div class="section-head">
+              <h6 class="section-title"><span class="dot"></span><i class="fa-solid fa-location-dot"></i> Alamat Domisili</h6>
+              <p class="section-sub">Sesuai KK</p>
             </div>
 
             <div class="mb-3">
               <label class="form-label">Alamat Lengkap</label>
-              <div class="ppdb-iconwrap">
+              <div class="iconwrap">
                 <i class="fa-solid fa-map"></i>
-                <input type="text" name="alamat" class="form-control"
-                       placeholder="Jl..., RT/RW..., Dusun..." required>
+                <input type="text" name="alamat" class="form-control" placeholder="Jl..., RT/RW..., Dusun..." required>
               </div>
             </div>
 
@@ -454,11 +520,11 @@
             </div>
           </div>
 
-          <!-- SECTION: Pilihan Sekolah -->
-          <div class="ppdb-section">
-            <div class="ppdb-section-title">
-              <h6><span class="ppdb-dot"></span><i class="fa-solid fa-building-columns"></i> Pilihan Sekolah</h6>
-              <p class="ppdb-mini">Pilih sesuai minat</p>
+          <!-- PILIHAN SEKOLAH -->
+          <div class="section">
+            <div class="section-head">
+              <h6 class="section-title"><span class="dot"></span><i class="fa-solid fa-building-columns"></i> Pilihan Sekolah</h6>
+              <p class="section-sub">Pilih sesuai minat</p>
             </div>
 
             <div class="row">
@@ -484,63 +550,63 @@
                     </option>
                   <?php endforeach; ?>
                 </select>
-                <div class="ppdb-note">Kosongkan jika hanya memilih 1 sekolah.</div>
+                <div class="note">Kosongkan jika hanya memilih 1 sekolah.</div>
               </div>
             </div>
           </div>
 
-          <!-- SECTION: Upload Dokumen -->
-          <div class="ppdb-section">
-            <div class="ppdb-section-title">
-              <h6><span class="ppdb-dot"></span><i class="fa-solid fa-file-arrow-up"></i> Upload Dokumen Wajib</h6>
-              <p class="ppdb-mini">Format PDF/JPG/PNG</p>
+          <!-- DOKUMEN -->
+          <div class="section">
+            <div class="section-head">
+              <h6 class="section-title"><span class="dot"></span><i class="fa-solid fa-file-arrow-up"></i> Upload Dokumen Wajib</h6>
+              <p class="section-sub">PDF/JPG/PNG (Max 2MB)</p>
             </div>
 
             <div class="row g-3">
               <div class="col-md-4">
-                <div class="ppdb-upload">
+                <div class="upload-card">
                   <label class="form-label">Kartu Keluarga (KK)</label>
                   <input type="file" name="dok_kk" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-                  <div class="ppdb-note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
+                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="ppdb-upload">
+                <div class="upload-card">
                   <label class="form-label">Akta Lahir</label>
                   <input type="file" name="dok_akta" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-                  <div class="ppdb-note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
+                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="ppdb-upload">
+                <div class="upload-card">
                   <label class="form-label">Ijazah / SKL</label>
                   <input type="file" name="dok_ijazah" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-                  <div class="ppdb-note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
+                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- SECTION: Pernyataan + Submit -->
-          <div class="ppdb-section">
+          <!-- SUBMIT -->
+          <div class="section">
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="1" id="stmt" name="pernyataan" required>
-              <label class="form-check-label" for="stmt" style="font-weight:900;color:var(--text);">
+              <label class="form-check-label" for="stmt" style="font-weight:950;color:var(--text);">
                 Saya menyatakan data yang diinput benar dan dapat dipertanggungjawabkan.
               </label>
             </div>
 
-            <div class="ppdb-footer">
-              <div class="ppdb-lock">
+            <div class="footer">
+              <div class="lock">
                 <i class="fa-solid fa-lock"></i>
-                Data Anda tersimpan dengan aman dan akan diverifikasi oleh operator.
+                Data tersimpan aman dan akan diverifikasi operator.
               </div>
 
               <div class="d-flex gap-2 flex-wrap">
-                <a href="<?= base_url('dashboard') ?>" class="btn btn-ghost">
+                <a href="<?= base_url('dashboard') ?>" class="btn btn-soft">
                   <i class="fa-solid fa-arrow-left me-2"></i> Kembali
                 </a>
-                <button type="submit" class="btn btn-ppdb">
+                <button type="submit" class="btn btn-main">
                   <i class="fa-solid fa-paper-plane me-2"></i> Kirim Pendaftaran
                 </button>
               </div>
