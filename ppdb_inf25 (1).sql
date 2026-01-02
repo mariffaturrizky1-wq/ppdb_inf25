@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 01, 2026 at 02:56 AM
+-- Generation Time: Jan 02, 2026 at 06:42 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `ppdb_inf25`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pendaftaran`
+--
+
+CREATE TABLE `pendaftaran` (
+  `id_pendaftaran` int NOT NULL,
+  `nama_lengkap` varchar(150) NOT NULL,
+  `nisn` varchar(15) NOT NULL,
+  `asal_sekolah` varchar(150) NOT NULL,
+  `id_sekolah` int NOT NULL,
+  `nilai_rata_rata` decimal(5,2) NOT NULL,
+  `tanggal_daftar` date NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -177,6 +194,13 @@ INSERT INTO `tbl_user_profile` (`id_profile`, `id_user`, `nama_lengkap`, `tempat
 --
 
 --
+-- Indexes for table `pendaftaran`
+--
+ALTER TABLE `pendaftaran`
+  ADD PRIMARY KEY (`id_pendaftaran`),
+  ADD KEY `fk_datasekolah` (`id_sekolah`);
+
+--
 -- Indexes for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
@@ -206,6 +230,12 @@ ALTER TABLE `tbl_user_profile`
 --
 
 --
+-- AUTO_INCREMENT for table `pendaftaran`
+--
+ALTER TABLE `pendaftaran`
+  MODIFY `id_pendaftaran` int NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
@@ -228,6 +258,16 @@ ALTER TABLE `tbl_user`
 --
 ALTER TABLE `tbl_user_profile`
   MODIFY `id_profile` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `pendaftaran`
+--
+ALTER TABLE `pendaftaran`
+  ADD CONSTRAINT `fk_datasekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `tbl_datasekolah` (`id_sekolah`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
