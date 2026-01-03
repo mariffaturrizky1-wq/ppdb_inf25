@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.3
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 02 Jan 2026 pada 08.43
--- Versi server: 8.0.30
--- Versi PHP: 8.1.10
+-- Generation Time: Jan 03, 2026 at 01:29 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Basis data: `ppdb_inf25`
+-- Database: `ppdb_inf25`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `alur_ppdb`
+-- Table structure for table `alur_ppdb`
 --
 
 CREATE TABLE `alur_ppdb` (
@@ -36,7 +36,7 @@ CREATE TABLE `alur_ppdb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `alur_ppdb`
+-- Dumping data for table `alur_ppdb`
 --
 
 INSERT INTO `alur_ppdb` (`id`, `langkah`, `judul`, `deskripsi`, `aktif`) VALUES
@@ -50,7 +50,28 @@ INSERT INTO `alur_ppdb` (`id`, `langkah`, `judul`, `deskripsi`, `aktif`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwal_ppdb`
+-- Table structure for table `feedbacks`
+--
+
+CREATE TABLE `feedbacks` (
+  `id` int NOT NULL,
+  `nama` varchar(150) NOT NULL,
+  `jenis_kelamin` enum('Laki-laki','Perempuan') NOT NULL,
+  `keluhan` json DEFAULT NULL,
+  `provinsi` varchar(100) DEFAULT NULL,
+  `kabupaten` varchar(100) DEFAULT NULL,
+  `kecamatan` varchar(100) DEFAULT NULL,
+  `desa` varchar(100) DEFAULT NULL,
+  `keterangan` text,
+  `foto` varchar(255) DEFAULT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jadwal_ppdb`
 --
 
 CREATE TABLE `jadwal_ppdb` (
@@ -64,7 +85,7 @@ CREATE TABLE `jadwal_ppdb` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `jadwal_ppdb`
+-- Dumping data for table `jadwal_ppdb`
 --
 
 INSERT INTO `jadwal_ppdb` (`id`, `kegiatan`, `tanggal_mulai`, `tanggal_selesai`, `keterangan`, `urutan`, `aktif`) VALUES
@@ -75,7 +96,7 @@ INSERT INTO `jadwal_ppdb` (`id`, `kegiatan`, `tanggal_mulai`, `tanggal_selesai`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pendaftaran`
+-- Table structure for table `pendaftaran`
 --
 
 CREATE TABLE `pendaftaran` (
@@ -100,7 +121,7 @@ CREATE TABLE `pendaftaran` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengumuman`
+-- Table structure for table `pengumuman`
 --
 
 CREATE TABLE `pengumuman` (
@@ -115,7 +136,7 @@ CREATE TABLE `pengumuman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `pengumuman`
+-- Dumping data for table `pengumuman`
 --
 
 INSERT INTO `pengumuman` (`id`, `judul`, `slug`, `ringkasan`, `isi`, `kategori`, `is_active`, `created_at`) VALUES
@@ -126,7 +147,7 @@ INSERT INTO `pengumuman` (`id`, `judul`, `slug`, `ringkasan`, `isi`, `kategori`,
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_datasekolah`
+-- Table structure for table `tbl_datasekolah`
 --
 
 CREATE TABLE `tbl_datasekolah` (
@@ -137,7 +158,7 @@ CREATE TABLE `tbl_datasekolah` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `tbl_datasekolah`
+-- Dumping data for table `tbl_datasekolah`
 --
 
 INSERT INTO `tbl_datasekolah` (`id_sekolah`, `nama_sekolah`, `alamat`, `kuota`) VALUES
@@ -197,7 +218,7 @@ INSERT INTO `tbl_datasekolah` (`id_sekolah`, `nama_sekolah`, `alamat`, `kuota`) 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_desa`
+-- Table structure for table `tbl_desa`
 --
 
 CREATE TABLE `tbl_desa` (
@@ -209,7 +230,7 @@ CREATE TABLE `tbl_desa` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_dokumen`
+-- Table structure for table `tbl_dokumen`
 --
 
 CREATE TABLE `tbl_dokumen` (
@@ -224,7 +245,7 @@ CREATE TABLE `tbl_dokumen` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_jalur`
+-- Table structure for table `tbl_jalur`
 --
 
 CREATE TABLE `tbl_jalur` (
@@ -235,7 +256,7 @@ CREATE TABLE `tbl_jalur` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `tbl_jalur`
+-- Dumping data for table `tbl_jalur`
 --
 
 INSERT INTO `tbl_jalur` (`id`, `kode`, `nama`, `aktif`) VALUES
@@ -247,7 +268,7 @@ INSERT INTO `tbl_jalur` (`id`, `kode`, `nama`, `aktif`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_kecamatan`
+-- Table structure for table `tbl_kecamatan`
 --
 
 CREATE TABLE `tbl_kecamatan` (
@@ -258,7 +279,7 @@ CREATE TABLE `tbl_kecamatan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_log`
+-- Table structure for table `tbl_log`
 --
 
 CREATE TABLE `tbl_log` (
@@ -272,7 +293,7 @@ CREATE TABLE `tbl_log` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_user`
+-- Table structure for table `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -285,11 +306,10 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `tbl_user`
+-- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`id_user`, `nama_user`, `email`, `password`, `foto`, `level`) VALUES
-(2, 'exando dhaniar outra', 'ekhsangagalngentod@gmail.com', '$2y$10$26VTSlIUR9GWGVRdPDjjl.yyZXf4BOIro7AbaWVDBCm8ZedIJ0BSu', NULL, 'admin'),
 (3, 'naufal fajar', 'nopalfjr29@gmail.com', '$2y$10$dDnC6OC8zKh9k7Mu2btr4.70acsV04krf9mTslyMxQzXJQidZZlEC', NULL, 'user'),
 (4, 'Rizky', 'kyyfatur12@gmail.com', '$2y$10$GixwMdJO1WtwZfhEV8jXvuOCP581GxaM7h6fom6znq1ZophVMEgoe', NULL, 'user'),
 (5, 'Administrator', 'admin@gmail.com', '$2y$10$Yk/bTC1F1YKJ3GZAP8IfZuZNnWa7nUl/OgAgDbWwd3uoJ8//VbBqW', NULL, 'admin');
@@ -297,7 +317,7 @@ INSERT INTO `tbl_user` (`id_user`, `nama_user`, `email`, `password`, `foto`, `le
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_user_profile`
+-- Table structure for table `tbl_user_profile`
 --
 
 CREATE TABLE `tbl_user_profile` (
@@ -317,30 +337,36 @@ CREATE TABLE `tbl_user_profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data untuk tabel `tbl_user_profile`
+-- Dumping data for table `tbl_user_profile`
 --
 
 INSERT INTO `tbl_user_profile` (`id_profile`, `id_user`, `nama_lengkap`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `agama`, `alamat`, `asal_sekolah`, `no_hp`, `foto`, `created_at`, `updated_at`) VALUES
 (1, 5, 'Muhammad Rizky', 'Jatiroto', '2006-12-02', 'L', 'Islam', 'KALIWADAS KRAJAN TENGAH RT 01 RW 03', 'SMP ISLAM T HUDA', '081326335241', '1767180379_a6e9baac5801c7957664.jpeg', '2025-12-31 09:45:19', '2025-12-31 11:49:42');
 
 --
--- Indeks untuk tabel yang dibuang
+-- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `alur_ppdb`
+-- Indexes for table `alur_ppdb`
 --
 ALTER TABLE `alur_ppdb`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `jadwal_ppdb`
+-- Indexes for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `jadwal_ppdb`
 --
 ALTER TABLE `jadwal_ppdb`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pendaftaran`
+-- Indexes for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
   ADD PRIMARY KEY (`id_pendaftaran`),
@@ -348,143 +374,149 @@ ALTER TABLE `pendaftaran`
   ADD KEY `fk_datasekolah` (`id_sekolah`);
 
 --
--- Indeks untuk tabel `pengumuman`
+-- Indexes for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbl_datasekolah`
+-- Indexes for table `tbl_datasekolah`
 --
 ALTER TABLE `tbl_datasekolah`
   ADD PRIMARY KEY (`id_sekolah`);
 
 --
--- Indeks untuk tabel `tbl_desa`
+-- Indexes for table `tbl_desa`
 --
 ALTER TABLE `tbl_desa`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbl_dokumen`
+-- Indexes for table `tbl_dokumen`
 --
 ALTER TABLE `tbl_dokumen`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbl_jalur`
+-- Indexes for table `tbl_jalur`
 --
 ALTER TABLE `tbl_jalur`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `kode` (`kode`);
 
 --
--- Indeks untuk tabel `tbl_kecamatan`
+-- Indexes for table `tbl_kecamatan`
 --
 ALTER TABLE `tbl_kecamatan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbl_log`
+-- Indexes for table `tbl_log`
 --
 ALTER TABLE `tbl_log`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `tbl_user`
+-- Indexes for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indeks untuk tabel `tbl_user_profile`
+-- Indexes for table `tbl_user_profile`
 --
 ALTER TABLE `tbl_user_profile`
   ADD PRIMARY KEY (`id_profile`),
   ADD UNIQUE KEY `uq_profile_user` (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `alur_ppdb`
+-- AUTO_INCREMENT for table `alur_ppdb`
 --
 ALTER TABLE `alur_ppdb`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `jadwal_ppdb`
+-- AUTO_INCREMENT for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `jadwal_ppdb`
 --
 ALTER TABLE `jadwal_ppdb`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `pendaftaran`
+-- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
   MODIFY `id_pendaftaran` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `pengumuman`
+-- AUTO_INCREMENT for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_datasekolah`
+-- AUTO_INCREMENT for table `tbl_datasekolah`
 --
 ALTER TABLE `tbl_datasekolah`
-  MODIFY `id_sekolah` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_sekolah` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_desa`
+-- AUTO_INCREMENT for table `tbl_desa`
 --
 ALTER TABLE `tbl_desa`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_dokumen`
+-- AUTO_INCREMENT for table `tbl_dokumen`
 --
 ALTER TABLE `tbl_dokumen`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_jalur`
+-- AUTO_INCREMENT for table `tbl_jalur`
 --
 ALTER TABLE `tbl_jalur`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_kecamatan`
+-- AUTO_INCREMENT for table `tbl_kecamatan`
 --
 ALTER TABLE `tbl_kecamatan`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_log`
+-- AUTO_INCREMENT for table `tbl_log`
 --
 ALTER TABLE `tbl_log`
   MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_user`
+-- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_user_profile`
+-- AUTO_INCREMENT for table `tbl_user_profile`
 --
 ALTER TABLE `tbl_user_profile`
   MODIFY `id_profile` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `pendaftaran`
+-- Constraints for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
   ADD CONSTRAINT `fk_datasekolah` FOREIGN KEY (`id_sekolah`) REFERENCES `tbl_datasekolah` (`id_sekolah`) ON DELETE CASCADE;

@@ -212,6 +212,11 @@
                         </a>
                     </li>
                     <li class="nav-item ml-3">
+                        <a href="<?= base_url('feedback') ?>" class="nav-link" title="Feedback">
+                            <i class="fas fa-comment-dots"></i> Feedback
+                        </a>
+                    </li>
+
                         <a href="<?= base_url('auth/login') ?>" class="btn btn-akun">
                             <i class="fas fa-user"></i> Akun
                         </a>

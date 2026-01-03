@@ -131,7 +131,7 @@ body {
 
     <div class="stats">
         <div>
-            <span>12+</span>
+            <span>52</span>
             <div>SMA</div>
         </div>
         <div>

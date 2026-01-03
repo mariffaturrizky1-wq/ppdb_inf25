@@ -28,3 +28,10 @@ $routes->post('profile/update', 'Profile::update');
 $routes->get('pendaftaran', 'Pendaftaran::index');
 $routes->post('pendaftaran/simpan', 'Pendaftaran::simpan');
 $routes->get('informasi-ppdb', 'InformasiPpdb::index');
+$routes->get('feedback', 'FeedbackController::index');
+$routes->post('feedback', 'FeedbackController::store');
+
+// halaman admin untuk melihat data feedback
+$routes->get('admin/feedback', 'FeedbackController::adminIndex');
+$routes->get('admin/feedback/(:num)', 'FeedbackController::adminShow/$1');
+$routes->get('admin/feedback/(:num)/delete', 'FeedbackController::adminDelete/$1');
