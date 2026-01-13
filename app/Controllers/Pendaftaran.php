@@ -142,8 +142,17 @@ class Pendaftaran extends Controller
                 throw new \Exception('Transaksi gagal.');
             }
 
-            $db->transCommit();
-            return redirect()->to(base_url('pendaftaran'))->with('success', "Pendaftaran berhasil! Nomor: {$noPendaftaran}");
+           $db->transCommit();
+
+            session()->set([
+                'nisn'           => $this->request->getPost('nisn'),
+                'no_pendaftaran' => $noPendaftaran,
+                'pendaftaran_id' => $pendaftaranId,
+            ]);
+
+            return redirect()->to(base_url('validasi'))
+            ->with('success', "Pendaftaran berhasil! Nomor: {$noPendaftaran}. Silakan cek status di menu Validasi.");
+
 
         } catch (\Throwable $e) {
             $db->transRollback();

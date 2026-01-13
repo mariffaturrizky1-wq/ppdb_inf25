@@ -108,6 +108,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </a>
                 </li>
 
+                <!-- VALIDASI -->
+                <li class="nav-item">
+                    <a href="<?= base_url('validasi') ?>"
+                      class="nav-link <?= ($uri == 'validasi') ? 'active' : '' ?>">
+                         <i class="nav-icon fas fa-check-circle"></i>
+                         <p>Validasi</p>
+                     </a>
+                </li>
+
             </ul>
         </nav>
       <!-- /.sidebar-menu -->

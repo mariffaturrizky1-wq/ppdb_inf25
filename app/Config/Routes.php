@@ -30,6 +30,7 @@ $routes->post('pendaftaran/simpan', 'Pendaftaran::simpan');
 $routes->get('informasi-ppdb', 'InformasiPpdb::index');
 $routes->get('feedback', 'FeedbackController::index');
 $routes->post('feedback', 'FeedbackController::store');
+$routes->get('validasi', 'Validasi::index');
 
 // halaman admin untuk melihat data feedback
 $routes->get('admin/feedback', 'FeedbackController::adminIndex');
