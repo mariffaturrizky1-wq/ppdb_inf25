@@ -2,16 +2,7 @@
 <?= $this->section('content') ?>
 
 <style>
-/* =========================================================
-   PPDB GOV SIGNATURE UI (Premium, tidak polos)
-   - Full background motif lembut
-   - Hero resmi + badge & ornament
-   - Stepper glossy
-   - Card glass + section divider
-   - Upload card premium
-   - Input lebih hidup tapi tetap elegan
-   ========================================================= */
-
+/* (CSS kamu tetap, aku tidak ubah) */
 :root{
   --navy:#0B2F55;
   --navy2:#082845;
@@ -38,11 +29,9 @@
   --radius:22px;
 }
 
-/* AdminLTE override */
 .content-wrapper{ background: transparent !important; }
 .content{ padding-top: 16px !important; }
 
-/* FULL PAGE BACKGROUND (motif halus) */
 .ppdb-page{
   min-height: calc(100vh - 120px);
   padding: 18px 14px 34px;
@@ -64,7 +53,6 @@
   pointer-events:none;
 }
 
-/* Layout container */
 .ppdb-container{
   max-width: 1120px;
   margin: 0 auto;
@@ -72,7 +60,6 @@
   z-index: 1;
 }
 
-/* HERO (lebih hidup) */
 .hero{
   background: linear-gradient(135deg, var(--navy2), var(--blue));
   border-radius: calc(var(--radius) + 4px);
@@ -120,7 +107,6 @@
   max-width: 820px;
 }
 
-/* Badge resmi */
 .hero-badges{
   display:flex;
   gap:10px;
@@ -141,7 +127,6 @@
   font-weight: 800;
 }
 
-/* STEP PER (lebih modern) */
 .stepper{
   display:grid;
   grid-template-columns: repeat(5, 1fr);
@@ -182,10 +167,7 @@
   position: relative;
   z-index: 1;
 }
-.step .txt{
-  position: relative;
-  z-index: 1;
-}
+.step .txt{ position: relative; z-index: 1; }
 .step .label{
   font-weight: 950;
   color: var(--text);
@@ -197,11 +179,8 @@
   color: var(--muted);
   margin-top:2px;
 }
-@media (max-width: 991px){
-  .stepper{ grid-template-columns: 1fr; }
-}
+@media (max-width: 991px){ .stepper{ grid-template-columns: 1fr; } }
 
-/* MAIN GLASS CARD */
 .card-glass{
   border-radius: 24px;
   background: rgba(255,255,255,.86);
@@ -228,7 +207,6 @@
   .card-glass .card-body{ padding: 34px; }
 }
 
-/* ALERT INFO (lebih elegan) */
 .notice{
   background: linear-gradient(180deg, rgba(242,183,5,.18), rgba(242,183,5,.08));
   border: 1px solid rgba(242,183,5,.34);
@@ -240,7 +218,6 @@
   align-items:flex-start;
 }
 
-/* SECTION */
 .section{
   padding-top: 18px;
   margin-top: 18px;
@@ -274,7 +251,6 @@
   font-size: .9rem;
 }
 
-/* INPUTS (lebih premium) */
 .form-label{
   font-weight: 950 !important;
   color: var(--text);
@@ -293,7 +269,6 @@
   box-shadow: 0 0 0 .22rem rgba(19,98,166,.12) !important;
 }
 
-/* input icon */
 .iconwrap{ position: relative; }
 .iconwrap i{
   position: absolute; left: 14px; top: 50%;
@@ -302,14 +277,12 @@
 }
 .iconwrap .form-control{ padding-left: 42px !important; }
 
-/* helper note */
 .note{
   color: var(--muted);
   font-size:.84rem;
   margin-top: 6px;
 }
 
-/* UPLOAD CARD */
 .upload-card{
   background: rgba(255,255,255,.94);
   border: 1px dashed rgba(15,76,129,.30);
@@ -327,7 +300,6 @@
   pointer-events:none;
 }
 
-/* BUTTONS */
 .btn-main{
   background: linear-gradient(135deg, var(--navy2), var(--blue2));
   border: none;
@@ -350,7 +322,6 @@
 }
 .btn-soft:hover{ transform: translateY(-1px); transition:.15s ease; }
 
-/* FOOTER */
 .footer{
   display:flex;
   justify-content: space-between;
@@ -371,7 +342,6 @@
 <div class="ppdb-page">
   <div class="ppdb-container">
 
-    <!-- HERO -->
     <div class="hero">
       <div class="hero-top">
         <div>
@@ -388,7 +358,6 @@
       </div>
     </div>
 
-    <!-- STEPPER -->
     <div class="stepper">
       <div class="step"><div class="num">1</div><div class="txt"><div class="label">Data Pribadi</div><div class="hint">NISN & asal sekolah</div></div></div>
       <div class="step"><div class="num">2</div><div class="txt"><div class="label">Alamat</div><div class="hint">Kecamatan & desa</div></div></div>
@@ -397,7 +366,6 @@
       <div class="step"><div class="num">5</div><div class="txt"><div class="label">Kirim</div><div class="hint">Pernyataan & submit</div></div></div>
     </div>
 
-    <!-- MAIN CARD -->
     <div class="card card-glass">
       <div class="card-body">
 
@@ -467,7 +435,9 @@
                 <select name="jalur_id" class="form-select" required>
                   <option value="">— Pilih Jalur —</option>
                   <?php foreach ($jalur as $j): ?>
-                    <option value="<?= $j['id'] ?>"><?= $j['nama'] ?></option>
+                    <option value="<?= esc($j['id'] ?? $j['id_jalur'] ?? '') ?>">
+                      <?= esc($j['nama'] ?? $j['nama_jalur'] ?? '') ?>
+                    </option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -506,7 +476,7 @@
                 <select name="kecamatan_id" id="kecamatan" class="form-select" required>
                   <option value="">— Pilih Kecamatan —</option>
                   <?php foreach ($kecamatan as $k): ?>
-                    <option value="<?= $k['id'] ?>"><?= $k['nama'] ?></option>
+                    <option value="<?= esc($k['id']) ?>"><?= esc($k['nama']) ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
@@ -533,8 +503,8 @@
                 <select name="id_sekolah" class="form-select" required>
                   <option value="">— Pilih Sekolah —</option>
                   <?php foreach ($sekolah as $s): ?>
-                    <option value="<?= $s['id_sekolah'] ?>">
-                      <?= $s['nama_sekolah'] ?> (Kuota: <?= $s['kuota'] ?>)
+                    <option value="<?= esc($s['id_sekolah']) ?>">
+                      <?= esc($s['nama_sekolah']) ?> (Kuota: <?= esc($s['kuota']) ?>)
                     </option>
                   <?php endforeach; ?>
                 </select>
@@ -545,8 +515,8 @@
                 <select name="id_sekolah2" class="form-select">
                   <option value="">— (Opsional) —</option>
                   <?php foreach ($sekolah as $s): ?>
-                    <option value="<?= $s['id_sekolah'] ?>">
-                      <?= $s['nama_sekolah'] ?> (Kuota: <?= $s['kuota'] ?>)
+                    <option value="<?= esc($s['id_sekolah']) ?>">
+                      <?= esc($s['nama_sekolah']) ?> (Kuota: <?= esc($s['kuota']) ?>)
                     </option>
                   <?php endforeach; ?>
                 </select>
@@ -622,27 +592,37 @@
 </div>
 
 <script>
-/* Dropdown desa dinamis */
-document.getElementById('kecamatan')?.addEventListener('change', async function(){
-  const kecId = this.value;
+document.addEventListener('DOMContentLoaded', function () {
+  const kecamatanSelect = document.getElementById('kecamatan');
   const desaSelect = document.getElementById('desa');
-  desaSelect.innerHTML = `<option value="">Memuat...</option>`;
 
-  if(!kecId){
-    desaSelect.innerHTML = `<option value="">— Pilih Desa —</option>`;
-    return;
-  }
+  if (!kecamatanSelect || !desaSelect) return;
 
-  try{
-    const res = await fetch(`<?= base_url('pendaftaran/desa') ?>/${kecId}`);
-    const data = await res.json();
+  kecamatanSelect.addEventListener('change', async function () {
+    const kecId = this.value;
 
-    let html = `<option value="">— Pilih Desa —</option>`;
-    data.forEach(d => html += `<option value="${d.id}">${d.nama}</option>`);
-    desaSelect.innerHTML = html;
-  }catch(e){
-    desaSelect.innerHTML = `<option value="">Gagal memuat desa</option>`;
-  }
+    desaSelect.innerHTML = `<option value="">Memuat...</option>`;
+
+    if (!kecId) {
+      desaSelect.innerHTML = `<option value="">— Pilih Desa —</option>`;
+      return;
+    }
+
+    try {
+      const url = `<?= base_url('pendaftaran/desa') ?>/${kecId}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      let html = `<option value="">— Pilih Desa —</option>`;
+      data.forEach(d => {
+        html += `<option value="${d.id}">${d.nama}</option>`;
+      });
+
+      desaSelect.innerHTML = html;
+    } catch (e) {
+      desaSelect.innerHTML = `<option value="">Gagal memuat desa</option>`;
+    }
+  });
 });
 </script>
 
