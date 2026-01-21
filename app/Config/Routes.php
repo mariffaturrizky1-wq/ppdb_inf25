@@ -44,6 +44,7 @@ $routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'filteruser']);
 $routes->post('perbaikan/upload', 'Perbaikan::upload', ['filter' => 'filteruser']);
 $routes->get('admin/feedback', 'Admin\FeedbackController::index');
 $routes->get('admin/feedback/photo/(:any)', 'Admin\FeedbackController::photo/$1');
-
+$routes->get('matching-jurusan', 'MatchingJurusan::index');
+$routes->post('matching-jurusan/submit', 'MatchingJurusan::submit');
 
 

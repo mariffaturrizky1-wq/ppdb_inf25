@@ -497,6 +497,14 @@ $fotoBase = base_url('uploads/feedback'); // change if your folder differs, e.g.
       body{ background:#fff; color:#000; }
       .panel, .chip, .toolbar, .footer, .modalBack, .toast{ display:none !important; }
     }
+
+    /* ==== BRAND TITLE FULL WHITE ==== */
+.brand-text,
+.brand-text.font-weight-light,
+.brand-text small{
+  color: #ffffff !important;
+}
+
   </style>
 </head>
 

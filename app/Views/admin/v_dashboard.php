@@ -3,82 +3,109 @@
 
 <style>
   :root{
-    --brand:#0b3a7a;
-    --brand2:#062b58;
-    --gold:#f4c542;
-    --text:#0f172a;
-    --muted:#64748b;
-    --border: rgba(15,23,42,.10);
-    --card: rgba(255,255,255,.96);
+    /* Dark neon palette */
+    --bg: #070A12;
+    --panel: rgba(12, 18, 35, .78);
+    --panel2: rgba(12, 18, 35, .92);
+    --text: #EAF0FF;
+    --muted: rgba(234, 240, 255, .70);
+    --border: rgba(138, 180, 255, .16);
+
+    --cyan: #22D3EE;
+    --violet: #A78BFA;
+    --lime: #A3FF12;
+    --pink: #FF4DDF;
+
+    --glow: 0 0 0.65rem rgba(34,211,238,.25), 0 0 1.2rem rgba(167,139,250,.18);
+    --glow2: 0 0 0.85rem rgba(255,77,223,.18), 0 0 1.4rem rgba(34,211,238,.14);
+  }
+
+  /* Page background (biar admin layout ikut dark) */
+  body{
+    background:
+      radial-gradient(1000px 500px at 10% -10%, rgba(34,211,238,.18), transparent 55%),
+      radial-gradient(900px 420px at 90% 10%, rgba(167,139,250,.18), transparent 55%),
+      radial-gradient(900px 500px at 50% 120%, rgba(255,77,223,.10), transparent 55%),
+      linear-gradient(180deg, #050713, #070A12);
+    color: var(--text);
   }
 
   .dash-wrap{ max-width: 1250px; margin: 0 auto; }
 
+  /* HERO */
   .dash-hero{
     border-radius: 18px;
     border: 1px solid var(--border);
     background:
-      radial-gradient(980px 360px at 10% 0%, rgba(11,58,122,.18), transparent 58%),
-      radial-gradient(760px 320px at 90% 30%, rgba(244,197,66,.16), transparent 55%),
-      linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.90));
+      radial-gradient(900px 360px at 12% 0%, rgba(34,211,238,.18), transparent 60%),
+      radial-gradient(760px 320px at 88% 30%, rgba(167,139,250,.16), transparent 58%),
+      radial-gradient(720px 260px at 50% 120%, rgba(255,77,223,.12), transparent 60%),
+      linear-gradient(180deg, rgba(12,18,35,.90), rgba(12,18,35,.70));
     padding: 18px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 22px 70px rgba(0,0,0,.55);
   }
 
-  .hero-title{ font-weight: 950; color: var(--text); margin:0; }
-  .hero-sub{ color: var(--muted); margin: 4px 0 0; }
+  .hero-title{
+    font-weight: 950;
+    margin:0;
+    letter-spacing:.2px;
+    text-shadow: 0 0 18px rgba(34,211,238,.14);
+  }
+  .hero-sub{ color: var(--muted); margin: 6px 0 0; }
+
   .hero-chip{
     display:inline-flex; align-items:center; gap:.45rem;
-    border-radius:999px; padding:.3rem .7rem;
-    border:1px solid rgba(0,0,0,.08);
-    background: rgba(255,255,255,.78);
+    border-radius:999px; padding:.35rem .75rem;
+    border:1px solid rgba(34,211,238,.22);
+    background: linear-gradient(90deg, rgba(34,211,238,.12), rgba(167,139,250,.10));
+    color: rgba(234,240,255,.92);
     font-size:.82rem;
-    color: var(--text);
     margin-right: 6px;
+    box-shadow: var(--glow);
+    backdrop-filter: blur(10px);
   }
 
-  .stat{
+  /* Alert neon */
+  .alert-gov{
     border-radius: 16px;
-    border: 1px solid var(--border);
-    background: var(--card);
-    box-shadow: 0 14px 45px rgba(0,0,0,.06);
-    padding: 14px 14px;
-    display:flex;
-    gap: 12px;
-    align-items:center;
-    height: 100%;
+    border: 1px solid rgba(34,211,238,.25);
+    background: linear-gradient(90deg, rgba(34,211,238,.12), rgba(167,139,250,.10));
+    color: rgba(234,240,255,.90);
+    font-weight: 850;
+    box-shadow: var(--glow2);
   }
-  .stat-ico{
-    width: 46px; height: 46px;
-    border-radius: 16px;
-    display:grid; place-items:center;
-    background: rgba(244,197,66,.18);
-    border: 1px solid rgba(244,197,66,.30);
-    color:#6b4c00;
-    font-size: 18px;
-    flex: 0 0 auto;
-  }
-  .stat b{ font-size: 20px; color: var(--text); }
-  .stat .lbl{ color: var(--muted); font-weight: 800; font-size: 13px; }
-  .stat .hint{ color: var(--muted); font-size: 12px; margin-top: 2px; }
 
-  .cardx{
+  /* Cards */
+  .cardx, .stat{
     border-radius: 18px;
     border: 1px solid var(--border);
-    background: var(--card);
-    box-shadow: 0 14px 45px rgba(0,0,0,.06);
+    background: linear-gradient(180deg, var(--panel2), var(--panel));
+    box-shadow: 0 20px 65px rgba(0,0,0,.55);
     overflow: hidden;
+    backdrop-filter: blur(12px);
   }
+
+  /* lift hover */
+  .cardx:hover, .stat:hover{
+    transform: translateY(-2px);
+    transition: .18s ease;
+    box-shadow: 0 26px 85px rgba(0,0,0,.60), var(--glow);
+    border-color: rgba(34,211,238,.28);
+  }
+
   .cardx-head{
     padding: 14px 16px;
-    background: linear-gradient(90deg, rgba(11,58,122,.08), rgba(244,197,66,.10));
-    border-bottom: 1px solid var(--border);
+    background:
+      linear-gradient(90deg, rgba(34,211,238,.12), rgba(167,139,250,.10));
+    border-bottom: 1px solid rgba(138,180,255,.14);
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap: 10px;
   }
+
   .cardx-title{
     margin:0;
     font-weight: 950;
@@ -87,31 +114,203 @@
     align-items:center;
     gap:.6rem;
   }
-  .ico{
-    width: 36px; height: 36px; border-radius: 14px;
-    display:grid; place-items:center;
-    background: rgba(244,197,66,.18);
-    border: 1px solid rgba(244,197,66,.30);
-    font-size: 16px;
-  }
+
   .cardx-body{ padding: 14px 16px; }
 
+  /* Icon badge */
+  .ico, .stat-ico{
+    width: 40px; height: 40px;
+    border-radius: 14px;
+    display:grid; place-items:center;
+    background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(167,139,250,.14));
+    border: 1px solid rgba(34,211,238,.22);
+    color: rgba(234,240,255,.95);
+    box-shadow: var(--glow);
+  }
+  .stat-ico{ width: 46px; height: 46px; font-size: 18px; }
+
+  /* Stats content */
+  .stat{
+    padding: 14px;
+    display:flex;
+    gap: 12px;
+    align-items:center;
+    height: 100%;
+    transition: .18s ease;
+  }
+  .stat b{
+    font-size: 22px;
+    color: var(--text);
+    text-shadow: 0 0 16px rgba(34,211,238,.10);
+  }
+  .stat .lbl{
+    color: rgba(234,240,255,.78);
+    font-weight: 850;
+    font-size: 13px;
+  }
+  .stat .hint{ color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+  /* List */
   .list-item{
     padding: 12px 0;
-    border-bottom: 1px dashed rgba(0,0,0,.12);
+    border-bottom: 1px dashed rgba(138,180,255,.16);
   }
   .list-item:last-child{ border-bottom: none; }
-  .list-title{ font-weight: 900; color: var(--text); }
-  .list-meta{ color: var(--muted); font-size: 12px; margin-top: 2px; }
 
-  .alert-gov{
-    border-radius: 16px;
-    border: 1px solid rgba(244,197,66,.35);
-    background: rgba(244,197,66,.12);
-    color: #5a4500;
-    font-weight: 850;
+  .list-title{
+    font-weight: 900;
+    color: var(--text);
   }
+  .list-meta{
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 3px;
+  }
+
+  /* Buttons (neon) */
+  .btn{
+    border-radius: 14px !important;
+    font-weight: 850;
+    letter-spacing:.2px;
+  }
+
+  .btn-primary{
+    border: 1px solid rgba(34,211,238,.30) !important;
+    background: linear-gradient(90deg, rgba(34,211,238,.95), rgba(167,139,250,.95)) !important;
+    color: #081022 !important;
+    box-shadow: var(--glow);
+  }
+  .btn-primary:hover{
+    filter: brightness(1.05);
+    box-shadow: 0 0 0.9rem rgba(34,211,238,.35), 0 0 1.6rem rgba(167,139,250,.22);
+    transform: translateY(-1px);
+    transition: .18s ease;
+  }
+
+  .btn-outline-primary{
+    border: 1px solid rgba(34,211,238,.35) !important;
+    color: rgba(234,240,255,.92) !important;
+    background: rgba(12,18,35,.55) !important;
+  }
+  .btn-outline-primary:hover{
+    background: rgba(34,211,238,.14) !important;
+    box-shadow: var(--glow);
+    transform: translateY(-1px);
+    transition: .18s ease;
+  }
+
+  .btn-outline-dark{
+    border: 1px solid rgba(234,240,255,.20) !important;
+    color: rgba(234,240,255,.90) !important;
+    background: rgba(12,18,35,.55) !important;
+  }
+  .btn-outline-dark:hover{
+    border-color: rgba(255,77,223,.28) !important;
+    box-shadow: var(--glow2);
+    transform: translateY(-1px);
+    transition: .18s ease;
+  }
+
+  /* Badges */
+  .badge-warning{
+    background: linear-gradient(90deg, rgba(163,255,18,.95), rgba(34,211,238,.85)) !important;
+    color: #07110a !important;
+    border: 1px solid rgba(163,255,18,.30);
+    box-shadow: 0 0 .9rem rgba(163,255,18,.18);
+    border-radius: 999px;
+    padding: .35rem .55rem;
+    font-weight: 900;
+  }
+
+  /* HR */
+  hr{ border-color: rgba(138,180,255,.16); }
+
+  /* Text tweaks */
+  .text-muted{ color: var(--muted) !important; }
+
+  /* FORCE DARK BACKGROUND (override template & bootstrap) */
+html, body{
+  background-color: #070A12 !important;
+  color: var(--text);
+}
+
+/* wrapper utama admin template */
+.content-wrapper,
+.container-fluid,
+.main-content,
+.wrapper{
+  background: transparent !important;
+}
+
+/* bootstrap default card putih */
+.card{
+  background: linear-gradient(180deg, rgba(12,18,35,.92), rgba(12,18,35,.75)) !important;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 65px rgba(0,0,0,.55);
+  color: var(--text);
+}
+
+/* table / section putih */
+.table,
+.table th,
+.table td{
+  background-color: transparent !important;
+  color: var(--text);
+}
+
+/* dropdown & modal */
+.dropdown-menu,
+.modal-content{
+  background: linear-gradient(180deg, rgba(12,18,35,.96), rgba(12,18,35,.85)) !important;
+  color: var(--text);
+  border: 1px solid var(--border);
+  box-shadow: 0 25px 80px rgba(0,0,0,.6);
+}
+
+/* form control */
+.form-control,
+.custom-select{
+  background: rgba(12,18,35,.75) !important;
+  border: 1px solid rgba(138,180,255,.25);
+  color: var(--text);
+}
+.form-control::placeholder{
+  color: rgba(234,240,255,.45);
+}
+
+/* navbar / header kalau masih putih */
+.navbar,
+.header,
+.topbar{
+  background: linear-gradient(90deg, rgba(12,18,35,.95), rgba(8,12,26,.95)) !important;
+  border-bottom: 1px solid var(--border);
+}
+
+html, body { height: 100%; }
+
+/* area bawah (footer) */
+.main-footer{
+  background: rgba(7,11,20,.85) !important;
+  color: rgba(229,231,235,.85) !important;
+  border-top: 1px solid rgba(255,255,255,.10) !important;
+}
+
+/* kalau ada link di footer */
+.main-footer a{
+  color: rgba(56,189,248,.95) !important;
+  text-decoration: none;
+}
+.main-footer a:hover{ text-decoration: underline; }
+
+/* kadang putihnya berasal dari wrapper/content */
+.content-wrapper,
+.wrapper,
+.content{
+  background: transparent !important;
+}
+
 </style>
+
 
 <div class="dash-wrap">
 
@@ -233,12 +432,6 @@
         <div class="cardx-body">
           <a href="<?= base_url('sekolah') ?>" class="btn btn-primary btn-block mb-2">
             <i class="fas fa-school"></i> Kelola Sekolah
-          </a>
-          <a href="<?= base_url('pendidikan') ?>" class="btn btn-outline-primary btn-block mb-2">
-            <i class="fas fa-graduation-cap"></i> Kelola Pendidikan
-          </a>
-          <a href="<?= base_url('agama') ?>" class="btn btn-outline-primary btn-block mb-2">
-            <i class="fas fa-praying-hands"></i> Kelola Agama
           </a>
           <a href="<?= base_url('profile') ?>" class="btn btn-outline-dark btn-block">
             <i class="fas fa-user"></i> Profil Saya
