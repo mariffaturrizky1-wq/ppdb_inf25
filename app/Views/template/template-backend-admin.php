@@ -111,13 +111,7 @@ $foto  = session()->get('foto');       // kalau kamu simpan path foto
               </a>
             </li>
 
-            <li class="nav-item">
-              <a href="<?= base_url('sekolah') ?>"
-                 class="nav-link <?= ($seg1 === 'sekolah') ? 'active' : '' ?>">
-                <i class="nav-icon fas fa-school"></i>
-                <p>Sekolah</p>
-              </a>
-            </li>
+            
 
             <li class="nav-item">
               <a href="<?= base_url('informasi-ppdb') ?>"
@@ -142,6 +136,20 @@ $foto  = session()->get('foto');       // kalau kamu simpan path foto
                 <p>Status Validasi</p>
               </a>
             </li>
+
+            <li class="nav-item mt-2">
+              <a href="<?= base_url('matching-jurusan') ?>"
+              class="nav-link <?= ($seg1 === 'matching-jurusan') ? 'active' : '' ?>"
+              style="background:linear-gradient(135deg, rgba(246,211,101,.18), rgba(94,231,255,.12));
+                      border:1px solid rgba(255,255,255,.10);">
+              <i class="nav-icon fas fa-compass"></i>
+              <p>
+                Matching Jurusan
+                <span class="right badge badge-warning">NEW</span>
+              </p>
+            </a>
+          </li>
+
 
           <?php elseif ($level === 'admin'): ?>
             <!-- ================= MENU ADMIN ================= -->
