@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class FeedbackModel extends Model
 {
-    protected $table            = 'feedbacks';
+    protected $table            = 'feedback';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
 

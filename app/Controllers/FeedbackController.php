@@ -17,10 +17,29 @@ class FeedbackController extends BaseController
 
     public function index()
     {
+        $db = db_connect();
+
+        // ambil semua kecamatan
+        $kecamatan = $db->query("
+            SELECT id_kecamatan, nama_kecamatan
+            FROM tbl_kecamatan
+            ORDER BY nama_kecamatan ASC
+        ")->getResultArray();
+
+        // ambil semua desa
+        $desa = $db->query("
+            SELECT id_kecamatan, nama
+            FROM tbl_desa
+            ORDER BY nama ASC
+        ")->getResultArray();
+
         return view('feedback/index', [
-            'title' => 'Formulir Feedback'
+            'title'     => 'Formulir Feedback',
+            'kecamatan' => $kecamatan,
+            'desa'      => $desa,
         ]);
     }
+
 
     public function store()
     {
@@ -49,7 +68,7 @@ class FeedbackController extends BaseController
         $fotoName = null;
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
             $fotoName = $foto->getRandomName();
-            $foto->move(WRITEPATH . 'uploads/feedback', $fotoName);
+            $foto->move(FCPATH . 'uploads/feedback', $fotoName);
         }
 
         $data = [
@@ -70,45 +89,4 @@ class FeedbackController extends BaseController
         return redirect()->to('/feedback')->with('success', 'Feedback berhasil dikirim. Terima kasih!');
     }
 
-    // =========================
-    // ADMIN
-    // =========================
-
-    public function adminIndex()
-    {
-        $rows = $this->feedbackModel->orderBy('id', 'DESC')->findAll();
-
-        return view('feedback/admin_index', [
-            'title' => 'Data Feedback',
-            'rows'  => $rows,
-        ]);
-    }
-
-    public function adminShow($id)
-    {
-        $row = $this->feedbackModel->find($id);
-        if (!$row) return redirect()->to('/admin/feedback')->with('error', 'Data tidak ditemukan.');
-
-        $row['keluhan'] = $row['keluhan'] ? json_decode($row['keluhan'], true) : [];
-
-        return view('feedback/admin_show', [
-            'title' => 'Detail Feedback',
-            'row'   => $row,
-        ]);
-    }
-
-    public function adminDelete($id)
-    {
-        $row = $this->feedbackModel->find($id);
-        if ($row) {
-            // hapus file foto jika ada
-            if (!empty($row['foto'])) {
-                $path = WRITEPATH . 'uploads/feedback/' . $row['foto'];
-                if (is_file($path)) @unlink($path);
-            }
-            $this->feedbackModel->delete($id);
-        }
-
-        return redirect()->to('/admin/feedback')->with('success', 'Feedback berhasil dihapus.');
-    }
 }

@@ -164,8 +164,8 @@
             <select name="desa" class="form-select mb-2">
                 <option value="">Pilih Desa</option>
                 <?php foreach ($desa as $d): ?>
-                    <option value="<?= $d['nama_desa'] ?>">
-                        <?= $d['nama_desa'] ?>
+                    <option value="<?= $d['nama'] ?>">
+                        <?= $d['nama'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>

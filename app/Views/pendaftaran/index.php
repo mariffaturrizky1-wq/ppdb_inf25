@@ -537,21 +537,21 @@
                 <div class="upload-card">
                   <label class="form-label">Kartu Keluarga (KK)</label>
                   <input type="file" name="dok_kk" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
+                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 10MB</div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="upload-card">
                   <label class="form-label">Akta Lahir</label>
                   <input type="file" name="dok_akta" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
+                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 10MB</div>
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="upload-card">
                   <label class="form-label">Ijazah / SKL</label>
                   <input type="file" name="dok_ijazah" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
-                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 2MB</div>
+                  <div class="note"><i class="fa-solid fa-circle-check me-1"></i> Max 10MB</div>
                 </div>
               </div>
             </div>

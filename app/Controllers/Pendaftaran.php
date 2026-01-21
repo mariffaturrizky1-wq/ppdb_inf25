@@ -77,7 +77,7 @@ class Pendaftaran extends Controller
         $noPendaftaran = "PPDB-BREBES-{$tahun}-{$rand}";
 
         // folder upload
-        $uploadDir = WRITEPATH . 'uploads/ppdb';
+        $uploadDir = FCPATH . 'uploads/ppdb';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0775, true);
         }
