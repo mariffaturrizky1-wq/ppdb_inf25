@@ -1,242 +1,619 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>Daftar Akun | PPDB Online</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Daftar Akun | PPDB Online</title>
 
-<link rel="stylesheet" href="<?= base_url('assets/AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>">
-<link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/adminlte.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/plugins/fontawesome-free/css/all.min.css') ?>">
+  <link rel="stylesheet" href="<?= base_url('assets/AdminLTE/dist/css/adminlte.min.css') ?>">
 
-<style>
-:root{
-    --blue-dark:#081a3c;
-    --blue-dark-2:#020c22;
-    --gold:#d4af37;
-}
+  <style>
+    :root{
+      --bg1:#071227;
+      --bg2:#0b255a;
+      --bg3:#091a3b;
+      --card: rgba(255,255,255,.08);
+      --card2: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.16);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --brand1:#f6c74f;
+      --brand2:#4fd1c5;
+      --shadow: 0 30px 90px rgba(0,0,0,.45);
+      --radius: 22px;
+      --radius2: 18px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
 
-/* ===== BACKGROUND ===== */
-body{
-    min-height:100vh;
-    background:
-    linear-gradient(-45deg,#020c22,#081a3c,#0f2b66,#081a3c);
-    background-size:400% 400%;
-    animation:bgMove 12s ease infinite;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'Segoe UI',sans-serif;
-}
+    *{box-sizing:border-box}
+    body{
+      min-height:100vh;
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 520px at 20% 10%, rgba(79,209,197,.18), transparent 55%),
+        radial-gradient(900px 520px at 85% 0%, rgba(246,199,79,.14), transparent 58%),
+        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      overflow-x:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 28px 16px;
+    }
 
-@keyframes bgMove{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-}
+    /* dekorasi kecil */
+    .stars{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.55;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.18) 0 2px, transparent 3px),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,.14) 0 1.6px, transparent 3px),
+        radial-gradient(circle at 70% 30%, rgba(255,255,255,.13) 0 1.8px, transparent 3px),
+        radial-gradient(circle at 90% 60%, rgba(255,255,255,.12) 0 2px, transparent 3px);
+      background-size: 520px 520px;
+      animation: drift 14s linear infinite;
+    }
+    @keyframes drift{
+      from{ transform: translate3d(0,0,0) }
+      to{ transform: translate3d(-60px, 40px, 0) }
+    }
 
-/* ===== CARD ===== */
-.login-box{
-    width:430px;
-    animation:fadeUp 1s ease;
-}
+    .shell{
+      width: min(1060px, 100%);
+      display:grid;
+      grid-template-columns: 1.35fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 980px){
+      .shell{ grid-template-columns: 1fr; }
+    }
 
-@keyframes fadeUp{
-    from{opacity:0;transform:translateY(60px)}
-    to{opacity:1;transform:translateY(0)}
-}
+    .panel{
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(520px 260px at 15% 0%, rgba(246,199,79,.16), transparent 60%),
+        radial-gradient(520px 260px at 100% 10%, rgba(79,209,197,.14), transparent 60%);
+      pointer-events:none;
+    }
+    .panel > *{ position:relative; }
 
-.card{
-    background:rgba(255,255,255,0.88);
-    backdrop-filter:blur(18px);
-    border-radius:22px;
-    box-shadow:0 40px 80px rgba(0,0,0,.5);
-    overflow:hidden;
-}
+    /* kiri */
+    .hero{
+      padding: 28px 26px;
+      display:flex;
+      flex-direction:column;
+      gap: 16px;
+      min-height: 420px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:44px; height:44px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(246,199,79,.95), rgba(79,209,197,.75));
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,255,255,.22);
+      color:#0b1736;
+      font-weight:900;
+    }
+    .brand h1{
+      margin:0;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing:.2px;
+    }
+    .brand p{
+      margin:2px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-.card::before{
-    content:'';
-    height:4px;
-    width:100%;
-    background:linear-gradient(90deg,var(--gold),#f6e27a,var(--gold));
-}
+    .headline{
+      margin-top: 6px;
+      font-size: 34px;
+      line-height:1.1;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+    .headline .accent{
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      -webkit-background-clip: text;
+      background-clip:text;
+      color: transparent;
+    }
+    .desc{
+      margin:0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 48ch;
+    }
+    .chips{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.88);
+      font-size: 12px;
+    }
+    .chip i{ opacity:.9; }
 
-/* ===== HEADER ===== */
-.card-header{
-    text-align:center;
-    border:none;
-    padding:35px 20px 10px;
-}
+    .miniRow{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){
+      .miniRow{ grid-template-columns: 1fr; }
+    }
+    .mini{
+      padding: 14px 14px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+    }
+    .mini .ic{
+      width:36px; height:36px;
+      border-radius: 14px;
+      display:grid; place-items:center;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      flex:0 0 auto;
+    }
+    .mini .t{ font-weight:800; font-size: 13px; margin:0; }
+    .mini .s{ margin:3px 0 0; color: var(--muted); font-size: 12px; }
 
-.admin-icon{
-    width:80px;
-    height:80px;
-    margin:auto;
-    border-radius:50%;
-    background:linear-gradient(135deg,var(--gold),#b8962e);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--blue-dark);
-    font-size:34px;
-    box-shadow:0 12px 30px rgba(0,0,0,.4);
-}
+    .pills{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:auto;
+      padding-top: 8px;
+    }
+    .pill{
+      font-size: 11px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color: rgba(255,255,255,.82);
+    }
 
-.card-header h3{
-    margin-top:12px;
-    font-weight:700;
-    color:var(--blue-dark);
-}
+    /* kanan (form) */
+    .formCard{
+      padding: 18px 18px;
+      display:flex;
+      flex-direction:column;
+      gap: 12px;
+      min-height: 420px;
+    }
+    .formTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding: 6px 2px 10px;
+    }
+    .formTop .ttl{
+      display:flex;
+      flex-direction:column;
+      gap:4px;
+    }
+    .formTop .ttl b{ font-size: 15px; }
+    .formTop .ttl span{ font-size: 12px; color: var(--muted); }
 
-.card-header small{
-    color:#666;
-}
+    .circleBtn{
+      width:40px;height:40px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:grid; place-items:center;
+      color: rgba(255,255,255,.9);
+      cursor:pointer;
+      transition: .15s ease;
+      user-select:none;
+      text-decoration:none;
+    }
+    .circleBtn:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.20); }
 
-/* ===== INPUT ===== */
-.form-control{
-    height:50px;
-    border-radius:16px;
-    padding-right:48px;
-}
+    .field{
+      position:relative;
+      margin-bottom: 10px;
+    }
+    .inp{
+      width:100%;
+      height: 48px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.07);
+      color: rgba(255,255,255,.92);
+      padding: 0 44px 0 44px;
+      outline:none;
+      font-size: 13px;
+    }
+    .inp::placeholder{ color: rgba(255,255,255,.55); }
+    .inp:focus{
+      border-color: rgba(255,255,255,.28);
+      box-shadow: 0 0 0 4px rgba(79,209,197,.14);
+    }
 
-/* ===== BUTTON ===== */
-.btn-daftar{
-    height:50px;
-    border-radius:30px;
-    background:linear-gradient(135deg,var(--gold),#b8962e);
-    color:var(--blue-dark);
-    font-weight:700;
-    letter-spacing:.5px;
-    transition:.4s;
-}
+    .leftIcon, .rightIcon{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:34px; height:34px;
+      border-radius: 14px;
+      display:grid;
+      place-items:center;
+      color: rgba(255,255,255,.86);
+      pointer-events:none;
+    }
+    .leftIcon{ left:8px; background: rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.10); }
+    .rightIcon{
+      right:8px;
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      pointer-events:auto;
+      cursor:pointer;
+      user-select:none;
+    }
 
-.btn-daftar:hover{
-    transform:translateY(-3px);
-    box-shadow:0 14px 35px rgba(0,0,0,.45);
-}
+    .strength{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin: 2px 2px 6px;
+    }
+    .strength small{ color: var(--muted); font-size: 11px; width:70px; }
+    .bar{
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      overflow:hidden;
+      flex:1;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+    .bar > i{
+      display:block;
+      height:100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ff6b6b, #f6c74f, #4fd1c5);
+      transition: width .18s ease;
+    }
 
-/* ===== LOADING ===== */
-.loading{
-    position:fixed;
-    inset:0;
-    background:rgba(2,12,34,.75);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-}
+    .row2{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top: 2px;
+      flex-wrap:wrap;
+    }
+    .check{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color: rgba(255,255,255,.80);
+      font-size: 12px;
+      user-select:none;
+    }
+    .check input{ accent-color: var(--brand2); }
 
-.spinner{
-    width:70px;
-    height:70px;
-    border:6px solid rgba(255,255,255,.3);
-    border-top:6px solid var(--gold);
-    border-radius:50%;
-    animation:spin 1s linear infinite;
-}
+    .link{
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+      text-decoration:none;
+    }
+    .link:hover{ text-decoration:underline; }
 
-@keyframes spin{
-    to{transform:rotate(360deg)}
-}
-</style>
+    .btnMain{
+      height: 48px;
+      border-radius: 16px;
+      border: 0;
+      width:100%;
+      font-weight: 900;
+      letter-spacing:.3px;
+      color:#0b1736;
+      background: linear-gradient(135deg, var(--brand1), var(--brand2));
+      box-shadow: 0 16px 40px rgba(0,0,0,.28);
+      transition: .15s ease;
+    }
+    .btnMain:hover{ filter: brightness(1.05); transform: translateY(-1px); }
+    .btnMain:disabled{ opacity:.7; cursor:not-allowed; transform:none; }
+
+    .foot{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:auto;
+      padding-top: 10px;
+      color: rgba(255,255,255,.66);
+      font-size: 12px;
+    }
+
+    /* alerts */
+    .alert{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.90);
+    }
+    .alert-danger{
+      border-color: rgba(255,107,107,.35);
+      background: rgba(255,107,107,.10);
+    }
+    .alert-success{
+      border-color: rgba(79,209,197,.35);
+      background: rgba(79,209,197,.10);
+    }
+
+    /* loading overlay */
+    .loading{
+      position:fixed;
+      inset:0;
+      background:rgba(2,12,34,.70);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:9999;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .spinner{
+      width:72px;height:72px;
+      border:6px solid rgba(255,255,255,.25);
+      border-top:6px solid var(--brand1);
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+    }
+    @keyframes spin{ to{transform:rotate(360deg)} }
+  </style>
 </head>
 
 <body>
+<div class="stars"></div>
 
 <!-- LOADING -->
 <div class="loading" id="loading">
-    <div class="spinner"></div>
+  <div class="spinner"></div>
 </div>
 
-<div class="login-box">
-    <div class="card">
+<div class="shell">
 
-        <div class="card-header">
-            <div class="admin-icon">
-                <i class="fas fa-user-plus"></i>
-            </div>
-            <h3>DAFTAR AKUN</h3>
-            <small>PPDB Online 2025</small>
+  <!-- LEFT INFO PANEL -->
+  <section class="panel">
+    <div class="hero">
+      <div class="brand">
+        <div class="logo"><i class="fas fa-graduation-cap"></i></div>
+        <div>
+          <h1>PPDB Online</h1>
+          <p>Portal Daftar • Admin & User</p>
+        </div>
+      </div>
+
+      <div class="headline">
+        Daftar akun untuk akses <span class="accent">lebih cepat</span> & <span class="accent">lebih aman</span>
+      </div>
+      <p class="desc">
+        Buat akun untuk mengelola proses PPDB. Setelah daftar, kamu bisa login dan sistem akan mengarahkan sesuai level akun.
+      </p>
+
+      <div class="miniRow">
+        <div class="mini">
+          <div class="ic"><i class="fas fa-shield-alt"></i></div>
+          <div>
+            <p class="t">Aman</p>
+            <p class="s">Validasi input & proteksi akun.</p>
+          </div>
+        </div>
+        <div class="mini">
+          <div class="ic"><i class="fas fa-users-cog"></i></div>
+          <div>
+            <p class="t">Admin & User</p>
+            <p class="s">Akses menyesuaikan role akun.</p>
+          </div>
+        </div>
+        <div class="mini">
+          <div class="ic"><i class="fas fa-bolt"></i></div>
+          <div>
+            <p class="t">Cepat</p>
+            <p class="s">UI ringan & mudah dipakai.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pills">
+        <span class="pill"><i class="fas fa-check-circle"></i> Validasi berkas</span>
+        <span class="pill"><i class="fas fa-chart-line"></i> Monitoring</span>
+        <span class="pill"><i class="fas fa-history"></i> Log aktivitas</span>
+        <span class="pill"><i class="fas fa-lock"></i> Session secure</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT FORM PANEL -->
+  <section class="panel">
+    <div class="formCard">
+
+      <div class="formTop">
+        <div class="ttl">
+          <b><i class="fas fa-user-plus mr-2"></i>Daftar</b>
+          <span>Masukkan data untuk membuat akun</span>
+        </div>
+        <a class="circleBtn" href="<?= base_url('/') ?>" title="Kembali ke Website">
+          <i class="fas fa-home"></i>
+        </a>
+      </div>
+
+      <?php if(session()->getFlashdata('errors')): ?>
+        <?php foreach(session()->getFlashdata('errors') as $error): ?>
+          <div class="alert alert-danger py-2 px-3 mb-2"><?= esc($error) ?></div>
+        <?php endforeach; ?>
+      <?php endif; ?>
+
+      <?php if(session()->getFlashdata('pesan')): ?>
+        <div class="alert alert-success py-2 px-3 mb-2">
+          <?= esc(session()->getFlashdata('pesan')) ?>
+        </div>
+      <?php endif; ?>
+
+      <form action="<?= base_url('auth/simpan_daftar') ?>" method="post" onsubmit="showLoading()">
+
+        <div class="field">
+          <span class="leftIcon"><i class="fas fa-user"></i></span>
+          <input class="inp" type="text" name="nama_user" placeholder="Nama Lengkap" required>
         </div>
 
-        <div class="card-body px-4 pb-4">
-
-            <?php if(session()->getFlashdata('errors')): ?>
-                <?php foreach(session()->getFlashdata('errors') as $error): ?>
-                    <div class="alert alert-danger"><?= $error ?></div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-
-            <?php if(session()->getFlashdata('pesan')): ?>
-                <div class="alert alert-success">
-                    <?= session()->getFlashdata('pesan') ?>
-                </div>
-            <?php endif; ?>
-
-            <form action="<?= base_url('auth/simpan_daftar') ?>" method="post" onsubmit="showLoading()">
-
-                <div class="input-group mb-3">
-                    <input type="text" name="nama_user" class="form-control" placeholder="Nama Lengkap" required>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Email" required>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group mb-4">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                    <div class="input-group-append">
-                        <div class="input-group-text toggle-password" onclick="togglePassword()">
-                            <i class="fas fa-eye" id="eye"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <button class="btn btn-daftar btn-block" id="btnDaftar">
-                    <i class="fas fa-user-plus"></i> DAFTAR
-                </button>
-
-            </form>
+        <div class="field">
+          <span class="leftIcon"><i class="fas fa-envelope"></i></span>
+          <input class="inp" type="email" id="email" name="email" placeholder="Email" required>
+          <span class="rightIcon" id="btnFillEmail" title="Isi cepat email admin (contoh)">
+            <i class="fas fa-magic"></i>
+          </span>
         </div>
 
-        <div class="card-footer text-center bg-transparent border-0">
-            <small>
-                Sudah punya akun?
-                <a href="<?= base_url('auth/login') ?>">Login</a>
-            </small>
+        <div class="field" style="margin-bottom:6px;">
+          <span class="leftIcon"><i class="fas fa-lock"></i></span>
+          <input class="inp" type="password" id="password" name="password" placeholder="Password" required>
+          <span class="rightIcon" onclick="togglePassword()" title="Lihat/Sembunyikan password">
+            <i class="fas fa-eye" id="eye"></i>
+          </span>
         </div>
+
+        <div class="strength">
+          <small>Strength</small>
+          <div class="bar"><i id="strengthBar"></i></div>
+        </div>
+
+        <div class="row2">
+          <label class="check">
+            <input type="checkbox" id="rememberEmail">
+            Ingat email saya
+          </label>
+          <a class="link" href="<?= base_url('auth/login') ?>">Sudah punya akun? Login</a>
+        </div>
+
+        <button class="btnMain mt-2" id="btnDaftar" type="submit">
+          <i class="fas fa-user-plus mr-2"></i> DAFTAR
+        </button>
+
+      </form>
+
+      <div class="foot">
+        <span>© PPDB Online</span>
+        <span style="opacity:.75;">AdminLTE • Modern UI</span>
+      </div>
 
     </div>
+  </section>
+
 </div>
 
 <script>
-function togglePassword(){
-    const p=document.getElementById('password');
-    const i=document.getElementById('eye');
-    if(p.type==='password'){
-        p.type='text'; i.classList.replace('fa-eye','fa-eye-slash');
+  function togglePassword(){
+    const p = document.getElementById('password');
+    const i = document.getElementById('eye');
+    if(p.type === 'password'){
+      p.type = 'text';
+      i.classList.remove('fa-eye');
+      i.classList.add('fa-eye-slash');
     }else{
-        p.type='password'; i.classList.replace('fa-eye-slash','fa-eye');
+      p.type = 'password';
+      i.classList.remove('fa-eye-slash');
+      i.classList.add('fa-eye');
     }
-}
+  }
 
-function showLoading(){
+  function showLoading(){
     document.getElementById('loading').style.display='flex';
     document.getElementById('btnDaftar').disabled=true;
-}
+  }
+
+  // Strength meter sederhana
+  const strengthBar = document.getElementById('strengthBar');
+  const pass = document.getElementById('password');
+
+  function calcStrength(v){
+    let s = 0;
+    if(v.length >= 8) s += 25;
+    if(/[A-Z]/.test(v)) s += 20;
+    if(/[a-z]/.test(v)) s += 20;
+    if(/[0-9]/.test(v)) s += 20;
+    if(/[^A-Za-z0-9]/.test(v)) s += 15;
+    return Math.min(100, s);
+  }
+
+  pass.addEventListener('input', ()=>{
+    const v = pass.value || '';
+    strengthBar.style.width = calcStrength(v) + '%';
+  });
+
+  // Ingat email (localStorage)
+  const email = document.getElementById('email');
+  const remember = document.getElementById('rememberEmail');
+
+  const saved = localStorage.getItem('ppdb_reg_email');
+  if(saved){
+    email.value = saved;
+    remember.checked = true;
+  }
+
+  remember.addEventListener('change', ()=>{
+    if(remember.checked){
+      localStorage.setItem('ppdb_reg_email', email.value || '');
+    }else{
+      localStorage.removeItem('ppdb_reg_email');
+    }
+  });
+
+  email.addEventListener('input', ()=>{
+    if(remember.checked){
+      localStorage.setItem('ppdb_reg_email', email.value || '');
+    }
+  });
+
+  // tombol isi cepat (opsional)
+  document.getElementById('btnFillEmail').addEventListener('click', ()=>{
+    if(!email.value) email.value = 'admin@gmail.com';
+    if(remember.checked) localStorage.setItem('ppdb_reg_email', email.value);
+  });
 </script>
 
 <script src="<?= base_url('assets/AdminLTE/plugins/jquery/jquery.min.js')?>"></script>
 <script src="<?= base_url('assets/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
 <script src="<?= base_url('assets/AdminLTE/dist/js/adminlte.min.js')?>"></script>
-
 </body>
 </html>
