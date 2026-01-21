@@ -10,50 +10,49 @@ class Validasi extends Controller
     {
         $db = db_connect();
 
-        // Ambil identitas user dari session (sesuaikan dengan session login kamu)
-        $userId = session()->get('user_id');
-        $nisn   = session()->get('nisn'); // kalau kamu simpan nisn di session
-
-        /**
-         * Pilihan A (disarankan): ambil berdasarkan user_id
-         * tapi tabel pendaftaran kamu belum ada kolom user_id.
-         * Jadi sekarang kita pakai NISN.
-         */
-
-        if (!$nisn) {
-            // fallback: kalau session belum menyimpan nisn, arahkan suruh isi dulu / login ulang
-            return redirect()->to(base_url('pendaftaran'))
-                ->with('error', 'NISN tidak ditemukan di sesi. Silakan login ulang / lengkapi pendaftaran.');
+        // ✅ wajib login (sesuai Auth kamu)
+        $idUser = session()->get('id_user');
+        if (!$idUser) {
+            return redirect()->to(base_url('auth/login'))
+                ->with('error', 'Silakan login dulu.');
         }
 
-        // Ambil pendaftaran terakhir berdasarkan NISN
+        // ✅ Ambil pendaftaran terakhir milik user ini
         $pendaftaran = $db->table('pendaftaran')
-            ->where('nisn', $nisn)
-            ->orderBy('id_pendaftaran','DESC') // pastikan tabel pendaftaran punya kolom id (PK). kalau namanya beda, ganti.
+            ->where('id_user', (int) $idUser)
+            ->orderBy('id_pendaftaran', 'DESC')
             ->get()
             ->getRowArray();
-
-        $reasonKeys = ['alasan_penolakan','alasan','catatan_admin','keterangan','catatan_validasi'];
-            $alasan = '';
-            foreach ($reasonKeys as $rk) {
-                if (!empty($pendaftaran[$rk])) { $alasan = $pendaftaran[$rk]; break; }
-            }
-            $pendaftaran['alasan_admin'] = $alasan; // key seragam untuk view
 
         if (!$pendaftaran) {
             return redirect()->to(base_url('pendaftaran'))
                 ->with('error', 'Kamu belum melakukan pendaftaran. Silakan daftar terlebih dahulu.');
         }
 
-        // Ambil dokumen untuk pendaftaran ini
+        // ✅ Normalisasi alasan admin (biar view punya key yang seragam)
+        $reasonKeys = ['alasan_penolakan','alasan','catatan_admin','keterangan','catatan_validasi'];
+        $alasan = '';
+        foreach ($reasonKeys as $rk) {
+            if (!empty($pendaftaran[$rk])) { $alasan = $pendaftaran[$rk]; break; }
+        }
+        $pendaftaran['alasan_admin'] = $alasan;
+
+        // ✅ Set ulang session cache (opsional tapi membantu halaman lain)
+        session()->set([
+            'pendaftaran_id' => $pendaftaran['id_pendaftaran'],
+            'nisn'           => $pendaftaran['nisn'],
+            'no_pendaftaran' => $pendaftaran['no_pendaftaran'],
+        ]);
+
+        // Ambil dokumen pendaftaran ini
         $dokumen = $db->table('tbl_dokumen')
-            ->where('pendaftaran_id', $pendaftaran['id_pendaftaran'])
+            ->where('pendaftaran_id', (int) $pendaftaran['id_pendaftaran'])
             ->get()
             ->getResultArray();
 
-        // Ambil log untuk pendaftaran ini
+        // Ambil log pendaftaran ini
         $log = $db->table('tbl_log')
-            ->where('pendaftaran_id', $pendaftaran['id_pendaftaran'])
+            ->where('pendaftaran_id', (int) $pendaftaran['id_pendaftaran'])
             ->orderBy('waktu', 'DESC')
             ->get()
             ->getResultArray();
@@ -66,7 +65,6 @@ class Validasi extends Controller
             'log'         => $log,
         ];
 
-        // PAKAI LAYOUT YANG SAMA DENGAN SISTEM (sidebar)
         return view('validasi/index', $data);
     }
 
@@ -75,19 +73,21 @@ class Validasi extends Controller
         $db = db_connect();
 
         $dok = $db->table('tbl_dokumen')
-            ->where('id', (int)$id)
-            ->get()->getRowArray();
+            ->where('id', (int) $id)
+            ->get()
+            ->getRowArray();
 
         if (!$dok) {
             return $this->response->setStatusCode(404)->setBody('Dokumen tidak ditemukan');
         }
 
-        // keamanan: hanya file ppdb
+        // ✅ keamanan: hanya file ppdb
         if (strpos($dok['file_path'], 'uploads/ppdb/') !== 0) {
             return $this->response->setStatusCode(403)->setBody('Akses ditolak');
         }
 
-        $fullPath = WRITEPATH . $dok['file_path'];
+        // ✅ FIX PATH: file kamu ada di public/ (FCPATH), bukan writable/ (WRITEPATH)
+        $fullPath = FCPATH . $dok['file_path'];
 
         if (!is_file($fullPath)) {
             return $this->response->setStatusCode(404)->setBody('File tidak ada');
@@ -97,8 +97,7 @@ class Validasi extends Controller
 
         return $this->response
             ->setHeader('Content-Type', $mime)
-            ->setHeader('Content-Disposition', 'inline; filename="'.basename($fullPath).'"')
+            ->setHeader('Content-Disposition', 'inline; filename="' . basename($fullPath) . '"')
             ->setBody(file_get_contents($fullPath));
     }
-
 }

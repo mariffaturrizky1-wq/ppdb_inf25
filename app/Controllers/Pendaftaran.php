@@ -31,7 +31,6 @@ class Pendaftaran extends Controller
     {
         $db = db_connect();
 
-        // tbl_desa kamu: id, id_kecamatan, nama  ✅
         $desa = $db->query("
             SELECT
                 id,
@@ -48,6 +47,31 @@ class Pendaftaran extends Controller
     {
         $db = db_connect();
 
+        // ✅ pastikan user login & session id_user ada
+        $idUser = session()->get('id_user');
+        if (!$idUser) {
+            return redirect()->to(base_url('auth/login'))->with('error', 'Silakan login dulu.');
+        }
+
+        // ✅ optional: cegah 1 akun daftar berkali-kali (ubah kalau kamu ingin boleh multi pendaftaran)
+        $existing = $db->table('pendaftaran')
+            ->where('id_user', (int) $idUser)
+            ->orderBy('id_pendaftaran', 'DESC')
+            ->get()
+            ->getRowArray();
+
+        if ($existing) {
+            // set cache session biar halaman lain aman
+            session()->set([
+                'pendaftaran_id' => $existing['id_pendaftaran'],
+                'nisn'           => $existing['nisn'],
+                'no_pendaftaran' => $existing['no_pendaftaran'],
+            ]);
+
+            return redirect()->to(base_url('validasi'))
+                ->with('error', 'Akun ini sudah pernah mendaftar. Silakan cek status validasi.');
+        }
+
         $rules = [
             'nama_lengkap' => 'required|min_length[3]',
             'nisn'         => 'required|numeric|exact_length[10]',
@@ -60,7 +84,7 @@ class Pendaftaran extends Controller
             'id_sekolah'   => 'required|integer',
             'pernyataan'   => 'required',
 
-            // ukuran KB: 10240 = 10MB
+            // 10MB
             'dok_kk'       => 'uploaded[dok_kk]|max_size[dok_kk,10240]|ext_in[dok_kk,pdf,jpg,jpeg,png]',
             'dok_akta'     => 'uploaded[dok_akta]|max_size[dok_akta,10240]|ext_in[dok_akta,pdf,jpg,jpeg,png]',
             'dok_ijazah'   => 'uploaded[dok_ijazah]|max_size[dok_ijazah,10240]|ext_in[dok_ijazah,pdf,jpg,jpeg,png]',
@@ -105,8 +129,9 @@ class Pendaftaran extends Controller
         $db->transBegin();
 
         try {
-            // === insert pendaftaran (sesuai DESCRIBE pendaftaran) ===
+            // ✅ insert pendaftaran + id_user
             $pendaftaranData = [
+                'id_user'         => (int) $idUser, // ✅ PENTING
                 'nama_lengkap'    => $this->request->getPost('nama_lengkap'),
                 'nisn'            => $this->request->getPost('nisn'),
                 'asal_sekolah'    => $this->request->getPost('asal_sekolah'),
@@ -123,7 +148,6 @@ class Pendaftaran extends Controller
 
                 'no_pendaftaran'  => $noPendaftaran,
                 'status'          => 'submit',
-                // created_at auto by DB
             ];
 
             $ok = $db->table('pendaftaran')->insert($pendaftaranData);
@@ -172,10 +196,10 @@ class Pendaftaran extends Controller
                 throw new \Exception('Insert dokumen gagal: ' . ($err['message'] ?? 'unknown error'));
             }
 
-            // insert log
+            // ✅ insert log (sesuaikan nama kolom kalau di tbl_log berbeda)
             $okLog = $db->table('tbl_log')->insert([
                 'pendaftaran_id' => $pendaftaranId,
-                'user_id'        => session()->get('user_id') ?? null,
+                'id_user'        => (int) $idUser,
                 'aksi'           => 'SUBMIT',
                 'waktu'          => date('Y-m-d H:i:s'),
             ]);
@@ -191,6 +215,7 @@ class Pendaftaran extends Controller
 
             $db->transCommit();
 
+            // ✅ session ini hanya cache (boleh hilang saat logout)
             session()->set([
                 'nisn'           => $this->request->getPost('nisn'),
                 'no_pendaftaran' => $noPendaftaran,
