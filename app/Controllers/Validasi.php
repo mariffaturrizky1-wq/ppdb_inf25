@@ -33,6 +33,13 @@ class Validasi extends Controller
             ->get()
             ->getRowArray();
 
+        $reasonKeys = ['alasan_penolakan','alasan','catatan_admin','keterangan','catatan_validasi'];
+            $alasan = '';
+            foreach ($reasonKeys as $rk) {
+                if (!empty($pendaftaran[$rk])) { $alasan = $pendaftaran[$rk]; break; }
+            }
+            $pendaftaran['alasan_admin'] = $alasan; // key seragam untuk view
+
         if (!$pendaftaran) {
             return redirect()->to(base_url('pendaftaran'))
                 ->with('error', 'Kamu belum melakukan pendaftaran. Silakan daftar terlebih dahulu.');
@@ -62,4 +69,36 @@ class Validasi extends Controller
         // PAKAI LAYOUT YANG SAMA DENGAN SISTEM (sidebar)
         return view('validasi/index', $data);
     }
+
+    public function viewDokumen($id)
+    {
+        $db = db_connect();
+
+        $dok = $db->table('tbl_dokumen')
+            ->where('id', (int)$id)
+            ->get()->getRowArray();
+
+        if (!$dok) {
+            return $this->response->setStatusCode(404)->setBody('Dokumen tidak ditemukan');
+        }
+
+        // keamanan: hanya file ppdb
+        if (strpos($dok['file_path'], 'uploads/ppdb/') !== 0) {
+            return $this->response->setStatusCode(403)->setBody('Akses ditolak');
+        }
+
+        $fullPath = WRITEPATH . $dok['file_path'];
+
+        if (!is_file($fullPath)) {
+            return $this->response->setStatusCode(404)->setBody('File tidak ada');
+        }
+
+        $mime = mime_content_type($fullPath) ?: 'application/octet-stream';
+
+        return $this->response
+            ->setHeader('Content-Type', $mime)
+            ->setHeader('Content-Disposition', 'inline; filename="'.basename($fullPath).'"')
+            ->setBody(file_get_contents($fullPath));
+    }
+
 }

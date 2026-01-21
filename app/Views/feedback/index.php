@@ -146,20 +146,29 @@
             <label class="form-label">Alamat</label>
             <select class="form-select mb-2" name="provinsi">
                 <option value="">Pilih Provinsi</option>
-                <option>Jawa Barat</option>
                 <option>Jawa Tengah</option>
-                <option>Jawa Timur</option>
             </select>
             <select class="form-select mb-2" name="kabupaten">
                 <option value="">Pilih Kabupaten / Kota</option>
+                <option>Brebes</option>
             </select>
-            <select class="form-select mb-2" name="kecamatan">
+            <select name="kecamatan" class="form-select mb-2">
                 <option value="">Pilih Kecamatan</option>
+                <?php foreach ($kecamatan as $kec): ?>
+                    <option value="<?= $kec['nama_kecamatan'] ?>">
+                        <?= $kec['nama_kecamatan'] ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
-            <select class="form-select" name="desa">
+
+            <select name="desa" class="form-select mb-2">
                 <option value="">Pilih Desa</option>
+                <?php foreach ($desa as $d): ?>
+                    <option value="<?= $d['nama_desa'] ?>">
+                        <?= $d['nama_desa'] ?>
+                    </option>
+                <?php endforeach; ?>
             </select>
-        </div>
 
         <!-- Upload Foto -->
         <div class="form-section">
@@ -174,7 +183,7 @@
         <div class="form-section">
             <label class="form-label">Keterangan</label>
             <textarea name="keterangan" rows="4" class="form-control"
-                      placeholder="Tuliskan detail feedback..."><?= old('keterangan') ?></textarea>
+                    placeholder="Tuliskan detail feedback..."><?= old('keterangan') ?></textarea>
         </div>
 
         <!-- Submit -->

@@ -35,12 +35,11 @@ $routes->get('validasi', 'Validasi::index');
 
 // ================= ADMIN (filter admin) =================
 $routes->get('admin', 'Admin::index', ['filter' => 'admin']);
-
 $routes->get('admin/validasi', 'AdminValidasi::index', ['filter' => 'admin']);
-$routes->get('admin/validasi/(:num)', 'AdminValidasi::detail/$1', ['filter' => 'admin']);
-$routes->post('admin/validasi/(:num)/set-status', 'AdminValidasi::setStatus/$1', ['filter' => 'admin']);
-$routes->post('admin/validasi/dokumen/(:num)/set-status', 'AdminValidasi::setDokumenStatus/$1', ['filter' => 'admin']);
+$routes->post('admin/validasi/set-status', 'AdminValidasi::setStatus', ['filter' => 'admin']);
+$routes->get('admin/dokumen/(:num)/view', 'AdminValidasi::viewDokumen/$1', ['filter' => 'admin']);
+$routes->post('admin/dokumen/set-status', 'AdminValidasi::setDokumenStatus', ['filter' => 'admin']);
+$routes->get('dokumen/view/(:num)', 'Validasi::viewDokumen/$1', ['filter' => 'filteruser']);
+$routes->get('perbaikan', 'Perbaikan::index', ['filter' => 'filteruser']);
+$routes->post('perbaikan/upload', 'Perbaikan::upload', ['filter' => 'filteruser']);
 
-$routes->get('admin/feedback', 'FeedbackController::adminIndex', ['filter' => 'admin']);
-$routes->get('admin/feedback/(:num)', 'FeedbackController::adminShow/$1', ['filter' => 'admin']);
-$routes->get('admin/feedback/(:num)/delete', 'FeedbackController::adminDelete/$1', ['filter' => 'admin']);
