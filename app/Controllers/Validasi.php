@@ -29,7 +29,7 @@ class Validasi extends Controller
         // Ambil pendaftaran terakhir berdasarkan NISN
         $pendaftaran = $db->table('pendaftaran')
             ->where('nisn', $nisn)
-            ->orderBy('id', 'DESC')   // pastikan tabel pendaftaran punya kolom id (PK). kalau namanya beda, ganti.
+            ->orderBy('id_pendaftaran','DESC') // pastikan tabel pendaftaran punya kolom id (PK). kalau namanya beda, ganti.
             ->get()
             ->getRowArray();
 
@@ -40,13 +40,13 @@ class Validasi extends Controller
 
         // Ambil dokumen untuk pendaftaran ini
         $dokumen = $db->table('tbl_dokumen')
-            ->where('pendaftaran_id', $pendaftaran['id'])
+            ->where('pendaftaran_id', $pendaftaran['id_pendaftaran'])
             ->get()
             ->getResultArray();
 
         // Ambil log untuk pendaftaran ini
         $log = $db->table('tbl_log')
-            ->where('pendaftaran_id', $pendaftaran['id'])
+            ->where('pendaftaran_id', $pendaftaran['id_pendaftaran'])
             ->orderBy('waktu', 'DESC')
             ->get()
             ->getResultArray();

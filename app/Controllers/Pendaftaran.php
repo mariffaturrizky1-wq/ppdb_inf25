@@ -14,7 +14,7 @@ class Pendaftaran extends Controller
         $data['sekolah'] = $db->table('tbl_datasekolah')->get()->getResultArray();
         $data['jalur']   = $db->table('tbl_jalur')->where('aktif', 1)->get()->getResultArray();
 
-        // Alias supaya view bisa pakai $k['id'] dan $k['nama']
+        // alias untuk view/JS (id, nama)
         $data['kecamatan'] = $db->query("
             SELECT
                 id_kecamatan AS id,
@@ -26,13 +26,12 @@ class Pendaftaran extends Controller
         return view('pendaftaran/index', $data);
     }
 
-    // Endpoint dropdown desa: /pendaftaran/desa/{kecamatanId}
+    // GET /pendaftaran/desa/{kecamatanId}
     public function desa($kecamatanId)
     {
         $db = db_connect();
 
-        // tbl_desa kolomnya: id, id_kecamatan, nama
-        // Alias supaya JS bisa pakai d.id dan d.nama
+        // tbl_desa kamu: id, id_kecamatan, nama  ✅
         $desa = $db->query("
             SELECT
                 id,
@@ -61,27 +60,36 @@ class Pendaftaran extends Controller
             'id_sekolah'   => 'required|integer',
             'pernyataan'   => 'required',
 
-            'dok_kk'       => 'uploaded[dok_kk]|max_size[dok_kk,2048]|ext_in[dok_kk,pdf,jpg,jpeg,png]',
-            'dok_akta'     => 'uploaded[dok_akta]|max_size[dok_akta,2048]|ext_in[dok_akta,pdf,jpg,jpeg,png]',
-            'dok_ijazah'   => 'uploaded[dok_ijazah]|max_size[dok_ijazah,2048]|ext_in[dok_ijazah,pdf,jpg,jpeg,png]',
+            // ukuran KB: 10240 = 10MB
+            'dok_kk'       => 'uploaded[dok_kk]|max_size[dok_kk,10240]|ext_in[dok_kk,pdf,jpg,jpeg,png]',
+            'dok_akta'     => 'uploaded[dok_akta]|max_size[dok_akta,10240]|ext_in[dok_akta,pdf,jpg,jpeg,png]',
+            'dok_ijazah'   => 'uploaded[dok_ijazah]|max_size[dok_ijazah,10240]|ext_in[dok_ijazah,pdf,jpg,jpeg,png]',
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->back()->withInput()->with('error', implode('<br>', $this->validator->getErrors()));
+            return redirect()->back()->withInput()
+                ->with('error', implode('<br>', $this->validator->getErrors()));
         }
 
+        // nomor pendaftaran
         $tahun = date('Y');
         $rand  = str_pad((string) random_int(1, 999999), 6, '0', STR_PAD_LEFT);
         $noPendaftaran = "PPDB-BREBES-{$tahun}-{$rand}";
 
+        // folder upload
         $uploadDir = WRITEPATH . 'uploads/ppdb';
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0775, true);
         }
 
+        // files
         $fileKK     = $this->request->getFile('dok_kk');
         $fileAkta   = $this->request->getFile('dok_akta');
         $fileIjazah = $this->request->getFile('dok_ijazah');
+
+        if (!$fileKK->isValid() || !$fileAkta->isValid() || !$fileIjazah->isValid()) {
+            return redirect()->back()->withInput()->with('error', 'Upload file tidak valid.');
+        }
 
         $kkName     = $fileKK->getRandomName();
         $aktaName   = $fileAkta->getRandomName();
@@ -91,34 +99,54 @@ class Pendaftaran extends Controller
         $aktaPath   = "uploads/ppdb/{$aktaName}";
         $ijazahPath = "uploads/ppdb/{$ijazahName}";
 
+        // nilai_rata_rata di DB (DECIMAL)
+        $nilaiRata = str_replace(',', '.', (string) $this->request->getPost('nilai'));
+
         $db->transBegin();
 
         try {
+            // === insert pendaftaran (sesuai DESCRIBE pendaftaran) ===
             $pendaftaranData = [
-                'nama_lengkap'   => $this->request->getPost('nama_lengkap'),
-                'nisn'           => $this->request->getPost('nisn'),
-                'asal_sekolah'   => $this->request->getPost('asal_sekolah'),
-                'id_sekolah'     => (int) $this->request->getPost('id_sekolah'),
-                'id_sekolah2'    => $this->request->getPost('id_sekolah2') ?: null,
-                'nilai'          => $this->request->getPost('nilai'),
-                'jalur_id'       => (int) $this->request->getPost('jalur_id'),
-                'alamat'         => $this->request->getPost('alamat'),
-                'kecamatan_id'   => (int) $this->request->getPost('kecamatan_id'),
-                'desa_id'        => (int) $this->request->getPost('desa_id'),
-                'no_pendaftaran' => $noPendaftaran,
-                'status'         => 'submit',
-                'created_at'     => date('Y-m-d H:i:s'),
+                'nama_lengkap'    => $this->request->getPost('nama_lengkap'),
+                'nisn'            => $this->request->getPost('nisn'),
+                'asal_sekolah'    => $this->request->getPost('asal_sekolah'),
+                'id_sekolah'      => (int) $this->request->getPost('id_sekolah'),
+                'id_sekolah2'     => $this->request->getPost('id_sekolah2') ? (int) $this->request->getPost('id_sekolah2') : null,
+
+                'nilai_rata_rata' => $nilaiRata,
+                'tanggal_daftar'  => date('Y-m-d'),
+
+                'jalur_id'        => (int) $this->request->getPost('jalur_id'),
+                'alamat'          => $this->request->getPost('alamat'),
+                'kecamatan_id'    => (int) $this->request->getPost('kecamatan_id'),
+                'desa_id'         => (int) $this->request->getPost('desa_id'),
+
+                'no_pendaftaran'  => $noPendaftaran,
+                'status'          => 'submit',
+                // created_at auto by DB
             ];
 
-            $db->table('pendaftaran')->insert($pendaftaranData);
+            $ok = $db->table('pendaftaran')->insert($pendaftaranData);
+            if (!$ok) {
+                $err = $db->error();
+                throw new \Exception('Insert pendaftaran gagal: ' . ($err['message'] ?? 'unknown error'));
+            }
+
             $pendaftaranId = $db->insertID();
 
-            // pindahkan file setelah insert sukses
-            $fileKK->move($uploadDir, $kkName);
-            $fileAkta->move($uploadDir, $aktaName);
-            $fileIjazah->move($uploadDir, $ijazahName);
+            // move files
+            if (!$fileKK->move($uploadDir, $kkName)) {
+                throw new \Exception('Gagal memindahkan file KK.');
+            }
+            if (!$fileAkta->move($uploadDir, $aktaName)) {
+                throw new \Exception('Gagal memindahkan file Akta.');
+            }
+            if (!$fileIjazah->move($uploadDir, $ijazahName)) {
+                throw new \Exception('Gagal memindahkan file Ijazah.');
+            }
 
-            $db->table('tbl_dokumen')->insertBatch([
+            // insert dokumen
+            $okDok = $db->table('tbl_dokumen')->insertBatch([
                 [
                     'pendaftaran_id' => $pendaftaranId,
                     'jenis'          => 'KK',
@@ -139,12 +167,23 @@ class Pendaftaran extends Controller
                 ],
             ]);
 
-            $db->table('tbl_log')->insert([
+            if (!$okDok) {
+                $err = $db->error();
+                throw new \Exception('Insert dokumen gagal: ' . ($err['message'] ?? 'unknown error'));
+            }
+
+            // insert log
+            $okLog = $db->table('tbl_log')->insert([
                 'pendaftaran_id' => $pendaftaranId,
                 'user_id'        => session()->get('user_id') ?? null,
                 'aksi'           => 'SUBMIT',
                 'waktu'          => date('Y-m-d H:i:s'),
             ]);
+
+            if (!$okLog) {
+                $err = $db->error();
+                throw new \Exception('Insert log gagal: ' . ($err['message'] ?? 'unknown error'));
+            }
 
             if ($db->transStatus() === false) {
                 throw new \Exception('Transaksi gagal.');
@@ -162,7 +201,8 @@ class Pendaftaran extends Controller
                 ->with('success', "Pendaftaran berhasil! Nomor: {$noPendaftaran}. Silakan cek status di menu Validasi.");
         } catch (\Throwable $e) {
             $db->transRollback();
-            return redirect()->back()->withInput()->with('error', 'Gagal menyimpan pendaftaran: ' . $e->getMessage());
+            return redirect()->back()->withInput()
+                ->with('error', 'Gagal menyimpan pendaftaran: ' . $e->getMessage());
         }
     }
 }
