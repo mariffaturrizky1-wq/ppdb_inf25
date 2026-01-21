@@ -33,7 +33,14 @@ $routes->get('feedback', 'FeedbackController::index');
 $routes->post('feedback', 'FeedbackController::store');
 $routes->get('validasi', 'Validasi::index');
 
-// halaman admin untuk melihat data feedback
-$routes->get('admin/feedback', 'FeedbackController::adminIndex');
-$routes->get('admin/feedback/(:num)', 'FeedbackController::adminShow/$1');
-$routes->get('admin/feedback/(:num)/delete', 'FeedbackController::adminDelete/$1');
+// ================= ADMIN (filter admin) =================
+$routes->get('admin', 'Admin::index', ['filter' => 'admin']);
+
+$routes->get('admin/validasi', 'AdminValidasi::index', ['filter' => 'admin']);
+$routes->get('admin/validasi/(:num)', 'AdminValidasi::detail/$1', ['filter' => 'admin']);
+$routes->post('admin/validasi/(:num)/set-status', 'AdminValidasi::setStatus/$1', ['filter' => 'admin']);
+$routes->post('admin/validasi/dokumen/(:num)/set-status', 'AdminValidasi::setDokumenStatus/$1', ['filter' => 'admin']);
+
+$routes->get('admin/feedback', 'FeedbackController::adminIndex', ['filter' => 'admin']);
+$routes->get('admin/feedback/(:num)', 'FeedbackController::adminShow/$1', ['filter' => 'admin']);
+$routes->get('admin/feedback/(:num)/delete', 'FeedbackController::adminDelete/$1', ['filter' => 'admin']);

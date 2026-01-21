@@ -18,6 +18,7 @@ class Filters extends BaseFilters
     public array $aliases = [
         'csrf'          => CSRF::class,
         'toolbar'       => DebugToolbar::class,
+        'admin'   => \App\Filters\FilterAdmin::class,
         'honeypot'      => Honeypot::class,
         'filteruser'    => \App\Filters\FilterUser::class,
         'invalidchars'  => InvalidChars::class,
@@ -38,7 +39,7 @@ class Filters extends BaseFilters
 
     // ================= ROUTE FILTER =================
     public array $filters = [
-        'filteruser' => [
+        'admin' => [
             'before' => [
                 'admin',
                 'admin/*'
